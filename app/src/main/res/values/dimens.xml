@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="detail_header_image_height">200dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="button_margin">30dp</dimen>
+</resources>
