@@ -20,6 +20,7 @@ public class MovieHomeActivity extends BaseActivity {
                     .replace(R.id.movielist_container, MovieHomeFragment.newInstance())
                     .commit();
         }
+
     }
 
     @Override

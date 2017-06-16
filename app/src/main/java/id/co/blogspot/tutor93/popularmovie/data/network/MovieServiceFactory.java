@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class MovieServiceFactory {
 
-    private static final String BASE_URL = " xxx ";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/";
     private static final int HTTP_READ_TIMEOUT = 10000;
     private static final int HTTP_CONNECT_TIMEOUT = 6000;
 
