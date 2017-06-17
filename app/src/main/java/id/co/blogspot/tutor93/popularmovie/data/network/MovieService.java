@@ -26,10 +26,10 @@ public interface MovieService {
     /**
      * Retrive top_rated movies
      */
-    @GET("movie/popular")
+    @GET("movie/top_rated")
     Call<MoviePopular> getMovieToprated(@Query("api_key") String api_key);
 
-    @GET("movie/popular")
+    @GET("movie/top_rated")
     Call<MoviePopular> getMovieToprated(@Query("api_key") String api_key,
                                         @Query("language") String language,
                                         @Query("page") String page,

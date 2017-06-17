@@ -24,12 +24,43 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
     }
 
     @Override
-    public void onInitialListRequested() {
-        getMoviePopular();
+    public void onInitialListRequested(String sortBy) {
+        if (sortBy.equals("popular")) {
+            getMoviePopular();
+        } else {
+            getMovieToprated();
+        }
     }
 
     private void getMoviePopular() {
          mDataManager.getPopularMovies(new RemoteCallback<MoviePopular>() {
+             @Override
+             public void onSuccess(MoviePopular response) {
+                 if (!isViewAttached()) return;
+                 mView.hideProgress();
+                 List<MoviePopularResults> responseResults = response.results;
+                 if (responseResults.isEmpty()) {
+                     mView.showEmpty();
+                     return;
+                 }
+
+                 mView.showMovielist(responseResults);
+             }
+
+             @Override
+             public void onUnauthorized() {
+
+             }
+
+             @Override
+             public void onFailed(Throwable throwable) {
+
+             }
+         });
+    }
+
+    private void getMovieToprated() {
+         mDataManager.getTopratedMovies(new RemoteCallback<MoviePopular>() {
              @Override
              public void onSuccess(MoviePopular response) {
                  if (!isViewAttached()) return;

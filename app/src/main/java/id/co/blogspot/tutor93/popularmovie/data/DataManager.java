@@ -31,4 +31,8 @@ public class DataManager {
     public void getPopularMovies(RemoteCallback<MoviePopular> listener) {
         mMovieService.getMoviePopular(BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
     }
+
+    public void getTopratedMovies(RemoteCallback<MoviePopular> listener) {
+        mMovieService.getMovieToprated(BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
+    }
 }

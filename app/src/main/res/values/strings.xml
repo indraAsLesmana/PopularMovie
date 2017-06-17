@@ -4,4 +4,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_search">search</string>
+
+    <string name="sort_popular">popular</string>
+    <string name="sort_toprated">top rated</string>
+
+
+    <!--Preference Configuration-->
+
+    <!-- Store Sort Preference -->
+    <string name="def_sortby_label">Sort Movie by</string>
+    <string name="def_sortby_key" translatable="false">def_sort</string>
+    <string name="def_sortby_default" translatable="false">@string/sort_popular</string>
+
 </resources>

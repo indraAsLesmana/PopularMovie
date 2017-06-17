@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
 import id.co.blogspot.tutor93.popularmovie.data.model.MoviePopularResults;
 import id.co.blogspot.tutor93.popularmovie.utility.Helper;
+import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,7 +75,8 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         initView(view);
         mMovieHomePresenter.attachView(this);
         if (mMovieHomeListAdapter.isEmpty()) {
-            mMovieHomePresenter.onInitialListRequested();
+            mMovieHomePresenter.onInitialListRequested(
+                    PrefenceUtils.getSinglePrefrenceString(mActivity, R.string.def_sortby_key));
         }
         return view;
     }
@@ -104,6 +107,28 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         mMessageText = (TextView) view.findViewById(R.id.tv_message);
         mMessageButton = (Button) view.findViewById(R.id.btn_try_again);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_sortby_popular:
+                PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_popular));
+                onRefresh();
+                break;
+            case R.id.action_sortby_toprated:
+                PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_toprated));
+                onRefresh();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onRefresh() {
+        mMovieHomeListAdapter.removeAll();
+        mMovieHomePresenter.onInitialListRequested(
+                PrefenceUtils.getSinglePrefrenceString(mActivity, R.string.def_sortby_key));
     }
 
     @Override
