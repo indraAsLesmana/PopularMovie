@@ -6,8 +6,8 @@ import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.base.BasePresenter;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
-import id.co.blogspot.tutor93.popularmovie.data.model.MoviePopular;
-import id.co.blogspot.tutor93.popularmovie.data.model.MoviePopularResults;
+import id.co.blogspot.tutor93.popularmovie.data.model.Movie;
+import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
 import id.co.blogspot.tutor93.popularmovie.data.network.RemoteCallback;
 
 /**
@@ -33,12 +33,12 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
     }
 
     private void getMoviePopular() {
-         mDataManager.getPopularMovies(new RemoteCallback<MoviePopular>() {
+         mDataManager.getPopularMovies(new RemoteCallback<Movie>() {
              @Override
-             public void onSuccess(MoviePopular response) {
+             public void onSuccess(Movie response) {
                  if (!isViewAttached()) return;
                  mView.hideProgress();
-                 List<MoviePopularResults> responseResults = response.results;
+                 List<MovieResults> responseResults = response.results;
                  if (responseResults.isEmpty()) {
                      mView.showEmpty();
                      return;
@@ -60,12 +60,12 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
     }
 
     private void getMovieToprated() {
-         mDataManager.getTopratedMovies(new RemoteCallback<MoviePopular>() {
+         mDataManager.getTopratedMovies(new RemoteCallback<Movie>() {
              @Override
-             public void onSuccess(MoviePopular response) {
+             public void onSuccess(Movie response) {
                  if (!isViewAttached()) return;
                  mView.hideProgress();
-                 List<MoviePopularResults> responseResults = response.results;
+                 List<MovieResults> responseResults = response.results;
                  if (responseResults.isEmpty()) {
                      mView.showEmpty();
                      return;

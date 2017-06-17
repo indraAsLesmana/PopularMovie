@@ -5,11 +5,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -22,12 +20,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Locale;
 
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
-import id.co.blogspot.tutor93.popularmovie.data.model.MoviePopularResults;
-import id.co.blogspot.tutor93.popularmovie.utility.Helper;
+import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
 import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
 
 /**
@@ -132,13 +128,13 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     }
 
     @Override
-    public void showMovielist(List<MoviePopularResults> moviePopularResultses) {
+    public void showMovielist(List<MovieResults> movieResultses) {
         if (mMovieHomeListAdapter.getViewType() != MovieHomeListAdapter.VIEW_TYPE_GALLERY) {
             mMovieHomeListAdapter.removeAll();
             mMovieHomeListAdapter.setViewType(MovieHomeListAdapter.VIEW_TYPE_GALLERY);
         }
 
-        mMovieHomeListAdapter.addItems(moviePopularResultses);
+        mMovieHomeListAdapter.addItems(movieResultses);
     }
 
     @Override
@@ -184,7 +180,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     }
 
     @Override
-    public void onMovieListClick(MoviePopularResults moviePopular, int adapterPosition) {
+    public void onMovieListClick(MovieResults moviePopular, int adapterPosition) {
         
     }
 }

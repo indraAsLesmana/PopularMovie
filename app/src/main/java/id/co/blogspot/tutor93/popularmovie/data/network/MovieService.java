@@ -1,6 +1,6 @@
 package id.co.blogspot.tutor93.popularmovie.data.network;
 
-import id.co.blogspot.tutor93.popularmovie.data.model.MoviePopular;
+import id.co.blogspot.tutor93.popularmovie.data.model.Movie;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -15,24 +15,24 @@ public interface MovieService {
      * Retrive popular movies
      * */
     @GET("movie/popular")
-    Call<MoviePopular> getMoviePopular(@Query("api_key") String api_key);
+    Call<Movie> getMoviePopular(@Query("api_key") String api_key);
 
     @GET("movie/popular")
-    Call<MoviePopular> getMoviePopular(@Query("api_key") String api_key,
-                                       @Query("language") String language,
-                                       @Query("page") String page,
-                                       @Query("region") String region);
+    Call<Movie> getMoviePopular(@Query("api_key") String api_key,
+                                @Query("language") String language,
+                                @Query("page") String page,
+                                @Query("region") String region);
 
     /**
      * Retrive top_rated movies
      */
     @GET("movie/top_rated")
-    Call<MoviePopular> getMovieToprated(@Query("api_key") String api_key);
+    Call<Movie> getMovieToprated(@Query("api_key") String api_key);
 
     @GET("movie/top_rated")
-    Call<MoviePopular> getMovieToprated(@Query("api_key") String api_key,
-                                        @Query("language") String language,
-                                        @Query("page") String page,
-                                        @Query("region") String region);
+    Call<Movie> getMovieToprated(@Query("api_key") String api_key,
+                                 @Query("language") String language,
+                                 @Query("page") String page,
+                                 @Query("region") String region);
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by indraaguslesmana on 6/16/17.
  */
 
-public class MoviePopular implements Parcelable {
+public class Movie implements Parcelable {
 
     public Integer page;
 
@@ -22,7 +22,7 @@ public class MoviePopular implements Parcelable {
     @SerializedName("total_pages")
     public Integer totalPages;
 
-    public List<MoviePopularResults> results = null;
+    public List<MovieResults> results = null;
 
     @Override
     public int describeContents() {
@@ -37,26 +37,26 @@ public class MoviePopular implements Parcelable {
         dest.writeList(this.results);
     }
 
-    public MoviePopular() {
+    public Movie() {
     }
 
-    protected MoviePopular(Parcel in) {
+    protected Movie(Parcel in) {
         this.page = (Integer) in.readValue(Integer.class.getClassLoader());
         this.totalResults = (Integer) in.readValue(Integer.class.getClassLoader());
         this.totalPages = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.results = new ArrayList<MoviePopularResults>();
-        in.readList(this.results, MoviePopularResults.class.getClassLoader());
+        this.results = new ArrayList<MovieResults>();
+        in.readList(this.results, MovieResults.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<MoviePopular> CREATOR = new Parcelable.Creator<MoviePopular>() {
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
         @Override
-        public MoviePopular createFromParcel(Parcel source) {
-            return new MoviePopular(source);
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
         }
 
         @Override
-        public MoviePopular[] newArray(int size) {
-            return new MoviePopular[size];
+        public Movie[] newArray(int size) {
+            return new Movie[size];
         }
     };
 }

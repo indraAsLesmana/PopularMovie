@@ -38,12 +38,4 @@ public class Constant {
 
     public static final String POPULAR = "popular";
     public static final String TOP_RATED = "top rated";
-
-    @Retention(SOURCE)
-    @StringDef({
-            POPULAR,
-            TOP_RATED
-    })
-    public @interface SortBy {}
-
 }

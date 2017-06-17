@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.R;
-import id.co.blogspot.tutor93.popularmovie.data.model.MoviePopularResults;
+import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
 import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 
@@ -28,7 +28,7 @@ import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 
 public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<MoviePopularResults> mMoviePopularsList;
+    private final List<MovieResults> mMoviePopularsList;
     private MovieListListener mMovieHomeListListener;
 
     /**
@@ -159,7 +159,7 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged();
     }
 
-    public void addItems(List<MoviePopularResults> itemsList) {
+    public void addItems(List<MovieResults> itemsList) {
         mMoviePopularsList.addAll(itemsList);
         notifyItemRangeInserted(getItemCount(), mMoviePopularsList.size() - 1);
     }
@@ -168,7 +168,7 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
      * Handling user click image
      */
     public interface MovieListListener {
-        void onMovieListClick(MoviePopularResults moviePopular, int adapterPosition);
+        void onMovieListClick(MovieResults moviePopular, int adapterPosition);
     }
 
     public void setMovieListListener(MovieListListener movieListListener) {
