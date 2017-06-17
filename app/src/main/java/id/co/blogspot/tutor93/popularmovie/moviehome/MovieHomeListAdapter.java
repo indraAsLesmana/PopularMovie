@@ -90,7 +90,7 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void onBindGenericItemViewHolder(final CharacterViewHolder holder, int position) {
-        String imageUrl = mMoviePopularsList.get(position).backdropPath;
+        String imageUrl = mMoviePopularsList.get(position).posterPath;
 
         if (!TextUtils.isEmpty(imageUrl) && !imageUrl.equals("")) {
             Glide.with(holder.listItem.getContext())
