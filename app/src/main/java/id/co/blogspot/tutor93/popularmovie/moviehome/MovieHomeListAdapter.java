@@ -19,6 +19,7 @@ import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.model.MoviePopularResults;
+import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 
 /**
@@ -94,7 +95,7 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         if (!TextUtils.isEmpty(imageUrl) && !imageUrl.equals("")) {
             Glide.with(holder.listItem.getContext())
-                    .load(Helper.getComplateImageUrl(imageUrl))
+                    .load(Helper.getComplateImageUrl(imageUrl, Constant.POSTERSIZE_w342))
                     .centerCrop()
                     .crossFade()
                     .into(holder.imageItem);

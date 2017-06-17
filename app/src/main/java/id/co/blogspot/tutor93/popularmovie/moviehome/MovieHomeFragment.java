@@ -1,6 +1,7 @@
 package id.co.blogspot.tutor93.popularmovie.moviehome;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,9 +34,8 @@ import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 public class MovieHomeFragment extends Fragment implements MovieHomeContract.MovielistView,
         MovieHomeListAdapter.MovieListListener {
 
-    private static final int TAB_LAYOUT_SPAN_SIZE = 2;
-    private static final int TAB_LAYOUT_ITEM_SPAN_SIZE = 1;
-    private static final int SCREEN_TABLET_DP_WIDTH = 600;
+    private static final int LANDSCAPE_SPANCOUNT = 4;
+    private static final int POTRAIT_SPANCOUNT = 2;
 
     private AppCompatActivity mActivity;
     private MovieHomePresenter mMovieHomePresenter;
@@ -92,8 +92,11 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         mMoviesRecycler.setItemAnimator(new DefaultItemAnimator());
         mMoviesRecycler.setAdapter(mMovieHomeListAdapter);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mActivity, 2);
-        mMoviesRecycler.setLayoutManager(gridLayoutManager);
+        if (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mMoviesRecycler.setLayoutManager(new GridLayoutManager(mActivity, POTRAIT_SPANCOUNT));
+        } else {
+            mMoviesRecycler.setLayoutManager(new GridLayoutManager(mActivity, LANDSCAPE_SPANCOUNT));
+        }
 
         mContentLoadingProgress = (ProgressBar) view.findViewById(R.id.progress);
         mMessageLayout = view.findViewById(R.id.message_layout);

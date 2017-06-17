@@ -8,10 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ItemTitleName" parent="TextAppearance.AppCompat.Headline">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:shadowColor">@color/colorPrimaryDark</item>
-        <item name="android:shadowRadius">3.0</item>
-    </style>
-
 </resources>

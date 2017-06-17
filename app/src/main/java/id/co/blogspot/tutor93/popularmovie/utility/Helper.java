@@ -2,14 +2,14 @@ package id.co.blogspot.tutor93.popularmovie.utility;
 
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
-
 /**
  * Created by indraaguslesmana on 6/16/17.
  */
 
 public class Helper {
-    public static String getComplateImageUrl(String backdrop_path) {
-        return Constant.BASE_URL_IMAGE + backdrop_path;
+
+    public static String getComplateImageUrl(String backdrop_path, @Constant.PosterSize String size) {
+        return Constant.BASE_URL_IMAGE + size + "/" + backdrop_path;
     }
 
     /**

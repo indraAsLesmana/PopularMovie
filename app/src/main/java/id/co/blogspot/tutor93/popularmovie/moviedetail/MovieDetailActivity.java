@@ -1,6 +1,5 @@
 package id.co.blogspot.tutor93.popularmovie.moviedetail;
 
-import android.support.compat.BuildConfig;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
