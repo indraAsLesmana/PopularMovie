@@ -13,4 +13,14 @@
     <dimen name="item_poster_height_large">280dp</dimen>
     <dimen name="item_poster_width_large">280dp</dimen>
 
+    <dimen name="margin_a">8dp</dimen>
+    <dimen name="margin_b">16dp</dimen>
+    <dimen name="margin_c">32dp</dimen>
+    <dimen name="margin_d">48dp</dimen>
+
+    <dimen name="height_a">120dp</dimen>
+    <dimen name="height_b">140dp</dimen>
+    <dimen name="height_c">160dp</dimen>
+
+
 </resources>

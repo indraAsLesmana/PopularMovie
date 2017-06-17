@@ -143,7 +143,11 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
             listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if (mMovieHomeListListener != null) {
+                        mMovieHomeListListener.onMovieListClick(
+                                mMoviePopularsList.get(getAdapterPosition()), imageItem,
+                                getAdapterPosition());
+                    }
                 }
             });
         }
@@ -168,7 +172,7 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
      * Handling user click image
      */
     public interface MovieListListener {
-        void onMovieListClick(MovieResults moviePopular, int adapterPosition);
+        void onMovieListClick(MovieResults movieDetail, View sharedElementView, int adapterPosition);
     }
 
     public void setMovieListListener(MovieListListener movieListListener) {

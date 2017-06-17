@@ -25,7 +25,7 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
 
     @Override
     public void onInitialListRequested(String sortBy) {
-        if (sortBy.equals("popular")) {
+        if (sortBy.equalsIgnoreCase("popular")) {
             getMoviePopular();
         } else {
             getMovieToprated();

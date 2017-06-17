@@ -4,7 +4,9 @@ package id.co.blogspot.tutor93.popularmovie.moviehome;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,12 +20,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
+import id.co.blogspot.tutor93.popularmovie.moviedetail.MovieDetailActivity;
 import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
 
 /**
@@ -70,6 +74,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
 
         initView(view);
         mMovieHomePresenter.attachView(this);
+        mMovieHomeListAdapter.setMovieListListener(this);
         if (mMovieHomeListAdapter.isEmpty()) {
             mMovieHomePresenter.onInitialListRequested(
                     PrefenceUtils.getSinglePrefrenceString(mActivity, R.string.def_sortby_key));
@@ -80,10 +85,6 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     private void initView(View view) {
         mActivity = (AppCompatActivity) getActivity();
         mActivity.setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
-
-        if (mActivity.getSupportActionBar() != null){
-
-        }
 
         mMoviesRecycler = (RecyclerView) view.findViewById(R.id.recycler_invitationlist);
         mMoviesRecycler.setHasFixedSize(true);
@@ -180,7 +181,13 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     }
 
     @Override
-    public void onMovieListClick(MovieResults moviePopular, int adapterPosition) {
-        
+    public void onMovieListClick(MovieResults movieDetail, View sharedElementView, int adapterPosition) {
+        startActivity(MovieDetailActivity.newStartIntent(mActivity, movieDetail),
+                makeTransitionBundle(sharedElementView));
+    }
+
+    private Bundle makeTransitionBundle(View sharedElementView) {
+        return ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+                sharedElementView, ViewCompat.getTransitionName(sharedElementView)).toBundle();
     }
 }
