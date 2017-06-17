@@ -14,15 +14,15 @@ import java.util.List;
 
 public class MoviePopular implements Parcelable {
 
-    private Integer page;
+    public Integer page;
 
     @SerializedName("total_results")
-    private Integer totalResults;
+    public Integer totalResults;
 
     @SerializedName("total_pages")
-    private Integer totalPages;
+    public Integer totalPages;
 
-    private List<MoviePopularResults> results = null;
+    public List<MoviePopularResults> results = null;
 
     @Override
     public int describeContents() {

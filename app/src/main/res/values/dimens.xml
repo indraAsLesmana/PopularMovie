@@ -4,4 +4,13 @@
     <dimen name="detail_header_image_height">200dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="button_margin">30dp</dimen>
+    <dimen name="item_loading_margin">8dp</dimen>
+    <dimen name="item_loading_padding">10dp</dimen>
+    <dimen name="item_loading_height">50dp</dimen>
+    <dimen name="item_image_width">120dp</dimen>
+    <dimen name="item_image_height">180dp</dimen>
+
+    <dimen name="item_poster_height_large">280dp</dimen>
+    <dimen name="item_poster_width_large">280dp</dimen>
+
 </resources>
