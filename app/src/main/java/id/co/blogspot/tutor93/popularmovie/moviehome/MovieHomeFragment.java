@@ -73,10 +73,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         initView(view);
         mMovieHomePresenter.attachView(this);
         if (mMovieHomeListAdapter.isEmpty()) {
-            mMovieHomePresenter.onInitialListRequested(
-                    Locale.getDefault().toString(),
-                    "1",
-                    "Indonesia");
+            mMovieHomePresenter.onInitialListRequested();
         }
         return view;
     }

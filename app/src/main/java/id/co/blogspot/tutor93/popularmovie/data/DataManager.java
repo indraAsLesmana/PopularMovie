@@ -28,11 +28,7 @@ public class DataManager {
         mMovieService = MovieServiceFactory.makeMovieService();
     }
 
-    public void getPopularMovies(String language, String page, String region,
-                                 RemoteCallback<MoviePopular> listener) {
-        mMovieService.getMoviePopular(BuildConfig.MOVIEDB_APIKEY,
-                language,
-                page,
-                region).enqueue(listener);
+    public void getPopularMovies(RemoteCallback<MoviePopular> listener) {
+        mMovieService.getMoviePopular(BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
     }
 }

@@ -24,12 +24,12 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
     }
 
     @Override
-    public void onInitialListRequested(String language, String page, String region) {
-        getMoviePopular(language, page, region);
+    public void onInitialListRequested() {
+        getMoviePopular();
     }
 
-    private void getMoviePopular(String language, String page, String region) {
-         mDataManager.getPopularMovies(language, page, region, new RemoteCallback<MoviePopular>() {
+    private void getMoviePopular() {
+         mDataManager.getPopularMovies(new RemoteCallback<MoviePopular>() {
              @Override
              public void onSuccess(MoviePopular response) {
                  if (!isViewAttached()) return;

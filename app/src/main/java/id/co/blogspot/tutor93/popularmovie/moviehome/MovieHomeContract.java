@@ -13,7 +13,7 @@ public interface MovieHomeContract {
 
     interface ViewActions {
 
-        void onInitialListRequested(String language, String page, String region);
+        void onInitialListRequested();
 
     }
 
