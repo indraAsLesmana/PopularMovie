@@ -121,6 +121,20 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
         return new CharacterViewHolder(view);
     }
 
+    public boolean isEmpty() {
+        return getItemCount() == 0;
+    }
+
+    public void removeAll() {
+        mMoviePopularsList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addItems(List<MovieResults> itemsList) {
+        mMoviePopularsList.addAll(itemsList);
+        notifyItemRangeInserted(getItemCount(), mMoviePopularsList.size() - 1);
+    }
+
     /**
      * ViewHolders
      */
@@ -154,40 +168,6 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
             });
         }
-    }
-
-    public boolean removeLoadingView() {
-        if (mMoviePopularsList.size() > 1) {
-            int loadingViewPosition = mMoviePopularsList.size() - 1;
-            if (getItemViewType(loadingViewPosition) == VIEW_TYPE_LOADING) {
-                remove(loadingViewPosition);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void remove(int position) {
-        if (mMoviePopularsList.size() < position) {
-            Log.w(TAG, "The item at position: " + position + " doesn't exist");
-            return;
-        }
-        mMoviePopularsList.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public boolean isEmpty() {
-        return getItemCount() == 0;
-    }
-
-    public void removeAll() {
-        mMoviePopularsList.clear();
-        notifyDataSetChanged();
-    }
-
-    public void addItems(List<MovieResults> itemsList) {
-        mMoviePopularsList.addAll(itemsList);
-        notifyItemRangeInserted(getItemCount(), mMoviePopularsList.size() - 1);
     }
 
     /**

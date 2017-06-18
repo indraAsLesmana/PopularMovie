@@ -30,7 +30,7 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/release_date" />
+                android:text="@string/detail_release_date" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/moviedetail_tvReleasedate"
@@ -41,7 +41,7 @@
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/vote_everage" />
+                android:text="@string/detail_vote_everage" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/moviedetail_voteaverage"

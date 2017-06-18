@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +43,8 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     private static final int POTRAIT_SPANCOUNT = 2;
 
     private AppCompatActivity mActivity;
+    private RelativeLayout mContentFrame;
+
     private MovieHomePresenter mMovieHomePresenter;
     private MovieHomeListAdapter mMovieHomeListAdapter;
     
@@ -97,12 +102,18 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         } else {
             mMoviesRecycler.setLayoutManager(new GridLayoutManager(mActivity, LANDSCAPE_SPANCOUNT));
         }
-
+        mContentFrame = (RelativeLayout) view.findViewById(R.id.details_content_frame);
         mContentLoadingProgress = (ProgressBar) view.findViewById(R.id.progress);
         mMessageLayout = view.findViewById(R.id.message_layout);
         mMessageImage = (ImageView) view.findViewById(R.id.iv_message);
-        mMessageText = (TextView) view.findViewById(R.id.tv_message);
+        mMessageText = (AppCompatTextView) view.findViewById(R.id.tv_message);
         mMessageButton = (Button) view.findViewById(R.id.btn_try_again);
+        mMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRefresh();
+            }
+        });
 
     }
 
@@ -143,17 +154,22 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         if (mMovieHomeListAdapter.isEmpty()) {
             mContentLoadingProgress.setVisibility(View.VISIBLE);
         }
+
+        mContentFrame.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
         mContentLoadingProgress.setVisibility(View.GONE);
-        mMovieHomeListAdapter.removeLoadingView();
+        mContentFrame.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showUnauthorizedError() {
-
+        mMessageImage.setImageResource(R.drawable.ic_error_list);
+        mMessageText.setText(getString(R.string.error_generic_server_error, "Unauthorized"));
+        mMessageButton.setText(getString(R.string.action_try_again));
+        showMessageLayout(true);
     }
 
     @Override
@@ -163,12 +179,16 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
 
     @Override
     public void showError(String errorMessage) {
-
+        mMessageImage.setImageResource(R.drawable.ic_error_list);
+        mMessageText.setText(getString(R.string.error_generic_server_error, errorMessage));
+        mMessageButton.setText(getString(R.string.action_try_again));
+        showMessageLayout(true);
     }
 
     @Override
     public void showMessageLayout(boolean show) {
-
+        mMessageLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+        mContentFrame.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
     @Override

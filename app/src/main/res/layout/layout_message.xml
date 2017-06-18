@@ -13,10 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_c"
+        android:paddingRight="@dimen/margin_c"
+        android:gravity="center"
         android:layout_margin="@dimen/text_margin"/>
 
     <android.support.v7.widget.AppCompatButton

@@ -33,13 +33,14 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
     }
 
     private void getMoviePopular() {
+        if (!isViewAttached()) return;
+        mView.showMessageLayout(false);
         mView.showProgress();
         mDataManager.getPopularMovies(new RemoteCallback<Movie>() {
              @Override
              public void onSuccess(Movie response) {
                  mView.hideProgress();
                  if (!isViewAttached()) return;
-                 mView.hideProgress();
                  List<MovieResults> responseResults = response.results;
                  if (responseResults.isEmpty()) {
                      mView.showEmpty();
@@ -51,26 +52,31 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
 
              @Override
              public void onUnauthorized() {
+                 if (!isViewAttached()) return;
                  mView.hideProgress();
+                 mView.showUnauthorizedError();
 
              }
 
              @Override
              public void onFailed(Throwable throwable) {
+                 if (!isViewAttached()) return;
                  mView.hideProgress();
+                 mView.showError(throwable.getMessage());
 
              }
          });
     }
 
     private void getMovieToprated() {
+        if (!isViewAttached()) return;
+        mView.showMessageLayout(false);
         mView.showProgress();
         mDataManager.getTopratedMovies(new RemoteCallback<Movie>() {
              @Override
              public void onSuccess(Movie response) {
                  mView.hideProgress();
                  if (!isViewAttached()) return;
-                 mView.hideProgress();
                  List<MovieResults> responseResults = response.results;
                  if (responseResults.isEmpty()) {
                      mView.showEmpty();
@@ -82,14 +88,16 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
 
              @Override
              public void onUnauthorized() {
+                 if (!isViewAttached()) return;
                  mView.hideProgress();
-
+                 mView.showUnauthorizedError();
              }
 
              @Override
              public void onFailed(Throwable throwable) {
+                 if (!isViewAttached()) return;
                  mView.hideProgress();
-
+                 mView.showError(throwable.getMessage());
              }
          });
     }
