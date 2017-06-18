@@ -4,6 +4,7 @@ import android.support.annotation.IntDef;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import id.co.blogspot.tutor93.popularmovie.utility.Helper;
  */
 
 public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static final String TAG = "MovieHomeListAdapter";
 
     private final List<MovieResults> mMoviePopularsList;
     private MovieListListener mMovieHomeListListener;
@@ -153,6 +156,25 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    public boolean removeLoadingView() {
+        if (mMoviePopularsList.size() > 1) {
+            int loadingViewPosition = mMoviePopularsList.size() - 1;
+            if (getItemViewType(loadingViewPosition) == VIEW_TYPE_LOADING) {
+                remove(loadingViewPosition);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void remove(int position) {
+        if (mMoviePopularsList.size() < position) {
+            Log.w(TAG, "The item at position: " + position + " doesn't exist");
+            return;
+        }
+        mMoviePopularsList.remove(position);
+        notifyItemRemoved(position);
+    }
 
     public boolean isEmpty() {
         return getItemCount() == 0;

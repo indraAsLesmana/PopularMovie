@@ -27,7 +27,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     private MovieDetailPresenter mMovieDetailPresenter;
     private MovieResults mMovieresult;
-    private ImageView mImageView;
     private LinearLayout mContentFrame;
 
     private AppCompatActivity mActivity;
@@ -64,7 +63,6 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
-        mImageView = (ImageView) view.findViewById(R.id.moviedetail_imagemovie);
         mMovieDetailPresenter.attachView(this);
         initView(view);
 

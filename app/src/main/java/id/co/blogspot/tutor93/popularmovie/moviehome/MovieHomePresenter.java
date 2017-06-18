@@ -33,9 +33,11 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
     }
 
     private void getMoviePopular() {
-         mDataManager.getPopularMovies(new RemoteCallback<Movie>() {
+        mView.showProgress();
+        mDataManager.getPopularMovies(new RemoteCallback<Movie>() {
              @Override
              public void onSuccess(Movie response) {
+                 mView.hideProgress();
                  if (!isViewAttached()) return;
                  mView.hideProgress();
                  List<MovieResults> responseResults = response.results;
@@ -49,20 +51,24 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
 
              @Override
              public void onUnauthorized() {
+                 mView.hideProgress();
 
              }
 
              @Override
              public void onFailed(Throwable throwable) {
+                 mView.hideProgress();
 
              }
          });
     }
 
     private void getMovieToprated() {
-         mDataManager.getTopratedMovies(new RemoteCallback<Movie>() {
+        mView.showProgress();
+        mDataManager.getTopratedMovies(new RemoteCallback<Movie>() {
              @Override
              public void onSuccess(Movie response) {
+                 mView.hideProgress();
                  if (!isViewAttached()) return;
                  mView.hideProgress();
                  List<MovieResults> responseResults = response.results;
@@ -76,11 +82,13 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
 
              @Override
              public void onUnauthorized() {
+                 mView.hideProgress();
 
              }
 
              @Override
              public void onFailed(Throwable throwable) {
+                 mView.hideProgress();
 
              }
          });

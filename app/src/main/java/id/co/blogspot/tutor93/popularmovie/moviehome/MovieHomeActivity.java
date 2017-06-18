@@ -2,12 +2,9 @@ package id.co.blogspot.tutor93.popularmovie.moviehome;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.base.BaseActivity;
-import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
-
 
 public class MovieHomeActivity extends BaseActivity {
 

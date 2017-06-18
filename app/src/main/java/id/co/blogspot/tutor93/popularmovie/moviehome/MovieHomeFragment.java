@@ -140,12 +140,15 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
 
     @Override
     public void showProgress() {
-
+        if (mMovieHomeListAdapter.isEmpty()) {
+            mContentLoadingProgress.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideProgress() {
-
+        mContentLoadingProgress.setVisibility(View.GONE);
+        mMovieHomeListAdapter.removeLoadingView();
     }
 
     @Override
