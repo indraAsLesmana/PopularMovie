@@ -37,9 +37,6 @@ android {
 
         }
     }
-    /*buildTypes.each {
-        it.buildConfigField 'String', 'MOVIEDB_APIKEY', MyMovieDbApiKey
-    }*/
 }
 
 dependencies {
