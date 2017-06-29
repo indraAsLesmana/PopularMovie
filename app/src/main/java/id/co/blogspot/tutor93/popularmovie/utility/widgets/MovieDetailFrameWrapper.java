@@ -43,6 +43,7 @@ public class MovieDetailFrameWrapper extends LinearLayout{
         if (!TextUtils.isEmpty(movieResults.posterPath)){
             Glide.with(context)
                     .load(Helper.getComplateImageUrl(movieResults.posterPath, Constant.POSTERSIZE_w342))
+                    .error(R.drawable.ic_error_list)
                     .into(mImagePoster);
         }
     }

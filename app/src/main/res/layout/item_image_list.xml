@@ -10,6 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:transitionName="@string/transaction_poster"
-        tools:background="@android:drawable/ic_menu_report_image" />
+        android:background="@drawable/ic_loading" />
 
 </FrameLayout>
