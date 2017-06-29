@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
 import id.co.blogspot.tutor93.popularmovie.utility.Constant;
@@ -21,10 +23,10 @@ import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 
 public class MovieDetailFrameWrapper extends LinearLayout{
 
-    private TextView mReleaseDate;
-    private TextView mVoteAverage;
-    private TextView mDescription;
-    private ImageView mImagePoster;
+    @BindView(R.id.moviedetail_tvReleasedate) AppCompatTextView mReleaseDate;
+    @BindView(R.id.moviedetail_voteaverage) AppCompatTextView mVoteAverage;
+    @BindView(R.id.moviedetail_description) AppCompatTextView mDescription;
+    @BindView(R.id.moviedetail_imagemovie) AppCompatImageView mImagePoster;
 
     public MovieDetailFrameWrapper(Context context, MovieResults movieResults) {
         super(context);
@@ -50,10 +52,6 @@ public class MovieDetailFrameWrapper extends LinearLayout{
 
     private void init(Context context) {
         inflate(context, R.layout.content_moviedetail, this);
-
-        mReleaseDate = (AppCompatTextView) findViewById(R.id.moviedetail_tvReleasedate);
-        mVoteAverage = (AppCompatTextView) findViewById(R.id.moviedetail_voteaverage);
-        mDescription = (AppCompatTextView) findViewById(R.id.moviedetail_description);
-        mImagePoster = (AppCompatImageView) findViewById(R.id.moviedetail_imagemovie);
+        ButterKnife.bind(this);
     }
 }

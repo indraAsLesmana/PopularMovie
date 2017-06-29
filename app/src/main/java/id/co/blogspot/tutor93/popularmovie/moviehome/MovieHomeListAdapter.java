@@ -94,9 +94,10 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     private void onBindGenericItemViewHolder(final CharacterViewHolder holder, int position) {
-        // TODO : centerCrop option used, to make match parent image with placeholder but it issue
+        // TODOFIX: centerCrop option used, to make match parent image with placeholder but it issue
         //  its couse jagged image scalling when move with animation to detail activity, and couse glide load again new image.
-        
+        // FIX : after used butterknife, image jump to detail activity without reloading image again from URL
+
         String imageUrl = mMoviePopularsList.get(position).posterPath;
         if (!TextUtils.isEmpty(imageUrl) && !imageUrl.equals("")) {
             Glide.with(holder.listItem.getContext())
