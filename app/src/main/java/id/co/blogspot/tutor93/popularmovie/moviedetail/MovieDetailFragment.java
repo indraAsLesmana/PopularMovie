@@ -76,6 +76,7 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(mMovieresult.title);
         }
 
         mContentFrame = (LinearLayout) view.findViewById(R.id.details_content_frame);

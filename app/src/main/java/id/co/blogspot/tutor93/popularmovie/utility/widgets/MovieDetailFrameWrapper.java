@@ -4,11 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +29,8 @@ import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 
 public class MovieDetailFrameWrapper extends LinearLayout{
 
+    private static final String TAG = "MovieDetailFrameWrapper";
+
     @BindView(R.id.moviedetail_tvReleasedate) AppCompatTextView mReleaseDate;
     @BindView(R.id.moviedetail_voteaverage) AppCompatTextView mVoteAverage;
     @BindView(R.id.moviedetail_description) AppCompatTextView mDescription;
@@ -33,8 +41,9 @@ public class MovieDetailFrameWrapper extends LinearLayout{
         init(context);
 
         if (!TextUtils.isEmpty(movieResults.releaseDate)){
-            mReleaseDate.setText(movieResults.releaseDate);
+            mReleaseDate.setText(parseDate(movieResults.releaseDate));
         }
+
         if (movieResults.voteAverage != null){
             mVoteAverage.setText(String.valueOf(movieResults.voteAverage));
         }
@@ -53,5 +62,19 @@ public class MovieDetailFrameWrapper extends LinearLayout{
     private void init(Context context) {
         inflate(context, R.layout.content_moviedetail, this);
         ButterKnife.bind(this);
+    }
+
+    private String parseDate(String date) {
+        SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Date sourceDate = null;
+
+        try {
+            sourceDate = sourceDateFormat.parse(date);
+        } catch (ParseException e) {
+            Log.i(TAG, "parseDate: parse failed");
+        }
+
+        SimpleDateFormat finalDateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
+        return finalDateFormat.format(sourceDate);
     }
 }

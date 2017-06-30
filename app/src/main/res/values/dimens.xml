@@ -18,9 +18,18 @@
     <dimen name="margin_c">32dp</dimen>
     <dimen name="margin_d">48dp</dimen>
 
+    <dimen name="height_aa">60dp</dimen>
+    <dimen name="height_ab">70dp</dimen>
+
     <dimen name="height_a">120dp</dimen>
     <dimen name="height_b">140dp</dimen>
     <dimen name="height_c">160dp</dimen>
+
+    <dimen name="font_a">12sp</dimen>
+    <dimen name="font_b">14sp</dimen>
+    <dimen name="font_c">18sp</dimen>
+    <dimen name="font_d">24sp</dimen>
+    <dimen name="font_e">28sp</dimen>
 
 
 </resources>
