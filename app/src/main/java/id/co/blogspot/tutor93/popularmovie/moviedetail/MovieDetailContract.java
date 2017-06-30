@@ -11,9 +11,15 @@ public interface MovieDetailContract {
 
     interface ViewActions {
 
+        void onShowReviewRequest(int id);
+
+        void onPlayTrailerRequest(int id);
     }
 
     interface HomeClickView extends RemoteView {
 
+        void showReview();
+
+        void showTrailer();
     }
 }

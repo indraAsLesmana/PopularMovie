@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/height_a"
+        android:layout_marginBottom="@dimen/margin_a"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatImageView
@@ -30,7 +31,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/margin_a">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -111,11 +113,10 @@
                     android:layout_gravity="center"
                     android:layout_weight="2"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Evaluabe"
+                    android:text="trailer"
                     android:textSize="@dimen/font_e" />
 
             </LinearLayout>
-
 
         </LinearLayout>
 
@@ -134,7 +135,8 @@
                 android:id="@+id/moviedetail_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/dummy_text" />
+                android:text="@string/dummy_text"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 

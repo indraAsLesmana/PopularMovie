@@ -3,6 +3,8 @@ package id.co.blogspot.tutor93.popularmovie.data;
 
 import id.co.blogspot.tutor93.popularmovie.BuildConfig;
 import id.co.blogspot.tutor93.popularmovie.data.model.Movie;
+import id.co.blogspot.tutor93.popularmovie.data.model.Reviews;
+import id.co.blogspot.tutor93.popularmovie.data.model.Videos;
 import id.co.blogspot.tutor93.popularmovie.data.network.MovieService;
 import id.co.blogspot.tutor93.popularmovie.data.network.MovieServiceFactory;
 import id.co.blogspot.tutor93.popularmovie.data.network.RemoteCallback;
@@ -35,4 +37,13 @@ public class DataManager {
     public void getTopratedMovies(RemoteCallback<Movie> listener) {
         mMovieService.getMovieToprated(BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
     }
+
+    public void getReview(int id, RemoteCallback<Reviews> listener) {
+        mMovieService.getReviews(id, BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
+    }
+
+    public void getTrailer(int id, RemoteCallback<Videos> listener) {
+        mMovieService.getVideos(id, BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
+    }
+
 }

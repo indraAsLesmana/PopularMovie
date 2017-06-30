@@ -65,7 +65,8 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
         mMovieDetailPresenter.attachView(this);
         initView(view);
-
+        mMovieDetailPresenter.onShowReviewRequest(mMovieresult.id);
+        mMovieDetailPresenter.onPlayTrailerRequest(mMovieresult.id);
         return view;
     }
 
@@ -114,6 +115,16 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
 
     @Override
     public void showMessageLayout(boolean show) {
+
+    }
+
+    @Override
+    public void showReview() {
+
+    }
+
+    @Override
+    public void showTrailer() {
 
     }
 }
