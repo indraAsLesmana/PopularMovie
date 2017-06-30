@@ -12,7 +12,7 @@ import java.util.List;
  * Created by indraaguslesmana on 6/16/17.
  */
 
-public class MovieResults implements Parcelable {
+public class MovieResult implements Parcelable {
 
     @SerializedName("vote_count")
     public Integer voteCount;
@@ -76,10 +76,10 @@ public class MovieResults implements Parcelable {
         dest.writeString(this.releaseDate);
     }
 
-    public MovieResults() {
+    public MovieResult() {
     }
 
-    protected MovieResults(Parcel in) {
+    protected MovieResult(Parcel in) {
         this.voteCount = (Integer) in.readValue(Integer.class.getClassLoader());
         this.id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.video = (Boolean) in.readValue(Boolean.class.getClassLoader());
@@ -97,15 +97,15 @@ public class MovieResults implements Parcelable {
         this.releaseDate = in.readString();
     }
 
-    public static final Parcelable.Creator<MovieResults> CREATOR = new Parcelable.Creator<MovieResults>() {
+    public static final Parcelable.Creator<MovieResult> CREATOR = new Parcelable.Creator<MovieResult>() {
         @Override
-        public MovieResults createFromParcel(Parcel source) {
-            return new MovieResults(source);
+        public MovieResult createFromParcel(Parcel source) {
+            return new MovieResult(source);
         }
 
         @Override
-        public MovieResults[] newArray(int size) {
-            return new MovieResults[size];
+        public MovieResult[] newArray(int size) {
+            return new MovieResult[size];
         }
     };
 }

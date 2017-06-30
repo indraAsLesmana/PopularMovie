@@ -4,7 +4,6 @@ import android.support.annotation.IntDef;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.R;
-import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
+import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 
@@ -31,7 +30,7 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private static final String TAG = "MovieHomeListAdapter";
 
-    private final List<MovieResults> mMoviePopularsList;
+    private final List<MovieResult> mMoviePopularsList;
     private MovieListListener mMovieHomeListListener;
 
     /**
@@ -134,7 +133,7 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyDataSetChanged();
     }
 
-    public void addItems(List<MovieResults> itemsList) {
+    public void addItems(List<MovieResult> itemsList) {
         mMoviePopularsList.addAll(itemsList);
         notifyItemRangeInserted(getItemCount(), mMoviePopularsList.size() - 1);
     }
@@ -178,7 +177,7 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
      * Handling user click image
      */
     public interface MovieListListener {
-        void onMovieListClick(MovieResults movieDetail, View sharedElementView, int adapterPosition);
+        void onMovieListClick(MovieResult movieDetail, View sharedElementView, int adapterPosition);
     }
 
     public void setMovieListListener(MovieListListener movieListListener) {

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by indraaguslesmana on 6/16/17.
  */
 
-public class Movie implements Parcelable {
+public class Movies implements Parcelable {
 
     public Integer page;
 
@@ -22,7 +22,7 @@ public class Movie implements Parcelable {
     @SerializedName("total_pages")
     public Integer totalPages;
 
-    public List<MovieResults> results = null;
+    public List<MovieResult> results = null;
 
     @Override
     public int describeContents() {
@@ -37,26 +37,26 @@ public class Movie implements Parcelable {
         dest.writeList(this.results);
     }
 
-    public Movie() {
+    public Movies() {
     }
 
-    protected Movie(Parcel in) {
+    protected Movies(Parcel in) {
         this.page = (Integer) in.readValue(Integer.class.getClassLoader());
         this.totalResults = (Integer) in.readValue(Integer.class.getClassLoader());
         this.totalPages = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.results = new ArrayList<MovieResults>();
-        in.readList(this.results, MovieResults.class.getClassLoader());
+        this.results = new ArrayList<MovieResult>();
+        in.readList(this.results, MovieResult.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Parcelable.Creator<Movies> CREATOR = new Parcelable.Creator<Movies>() {
         @Override
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
+        public Movies createFromParcel(Parcel source) {
+            return new Movies(source);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public Movies[] newArray(int size) {
+            return new Movies[size];
         }
     };
 }

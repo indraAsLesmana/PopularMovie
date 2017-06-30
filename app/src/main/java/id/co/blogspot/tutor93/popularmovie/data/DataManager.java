@@ -2,7 +2,7 @@ package id.co.blogspot.tutor93.popularmovie.data;
 
 
 import id.co.blogspot.tutor93.popularmovie.BuildConfig;
-import id.co.blogspot.tutor93.popularmovie.data.model.Movie;
+import id.co.blogspot.tutor93.popularmovie.data.model.Movies;
 import id.co.blogspot.tutor93.popularmovie.data.model.Reviews;
 import id.co.blogspot.tutor93.popularmovie.data.model.Videos;
 import id.co.blogspot.tutor93.popularmovie.data.network.MovieService;
@@ -30,11 +30,11 @@ public class DataManager {
         mMovieService = MovieServiceFactory.makeMovieService();
     }
 
-    public void getPopularMovies(RemoteCallback<Movie> listener) {
+    public void getPopularMovies(RemoteCallback<Movies> listener) {
         mMovieService.getMoviePopular(BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
     }
 
-    public void getTopratedMovies(RemoteCallback<Movie> listener) {
+    public void getTopratedMovies(RemoteCallback<Movies> listener) {
         mMovieService.getMovieToprated(BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
     }
 

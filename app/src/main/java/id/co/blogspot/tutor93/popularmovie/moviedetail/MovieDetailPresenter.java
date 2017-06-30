@@ -2,7 +2,7 @@ package id.co.blogspot.tutor93.popularmovie.moviedetail;
 
 import id.co.blogspot.tutor93.popularmovie.base.BasePresenter;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
-import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
+import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.data.model.Reviews;
 import id.co.blogspot.tutor93.popularmovie.data.model.Videos;
 import id.co.blogspot.tutor93.popularmovie.data.network.RemoteCallback;
@@ -15,7 +15,7 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailContract.Home
         implements MovieDetailContract.ViewActions{
 
     private DataManager mDataManager;
-    private MovieResults mMovieResults;
+    private MovieResult mMovieResult;
 
     public MovieDetailPresenter(DataManager dataManager) {
         mDataManager = dataManager;

@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Movie Service interface factory methods
+ * Movies Service interface factory methods
  */
 public class MovieServiceFactory {
 

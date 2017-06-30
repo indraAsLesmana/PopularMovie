@@ -19,17 +19,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
-import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
+import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.moviedetail.MovieDetailActivity;
 import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
 
@@ -140,7 +138,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     }
 
     @Override
-    public void showMovielist(List<MovieResults> movieResultses) {
+    public void showMovielist(List<MovieResult> movieResultses) {
         if (mMovieHomeListAdapter.getViewType() != MovieHomeListAdapter.VIEW_TYPE_GALLERY) {
             mMovieHomeListAdapter.removeAll();
             mMovieHomeListAdapter.setViewType(MovieHomeListAdapter.VIEW_TYPE_GALLERY);
@@ -204,7 +202,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     }
 
     @Override
-    public void onMovieListClick(MovieResults movieDetail, View sharedElementView, int adapterPosition) {
+    public void onMovieListClick(MovieResult movieDetail, View sharedElementView, int adapterPosition) {
         startActivity(MovieDetailActivity.newStartIntent(mActivity, movieDetail),
                 makeTransitionBundle(sharedElementView));
     }

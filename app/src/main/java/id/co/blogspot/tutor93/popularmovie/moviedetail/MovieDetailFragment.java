@@ -10,12 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
-import id.co.blogspot.tutor93.popularmovie.data.model.MovieResults;
+import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.utility.widgets.MovieDetailFrameWrapper;
 
 /**
@@ -26,13 +25,13 @@ public class MovieDetailFragment extends Fragment implements MovieDetailContract
     private static final String ARG_MOVIEDETAIL = "argMovieDetail";
 
     private MovieDetailPresenter mMovieDetailPresenter;
-    private MovieResults mMovieresult;
+    private MovieResult mMovieresult;
     private LinearLayout mContentFrame;
 
     private AppCompatActivity mActivity;
     private MovieDetailFrameWrapper mMovieDetailWrapper;
 
-    public static MovieDetailFragment newInstance(MovieResults movieDetail) {
+    public static MovieDetailFragment newInstance(MovieResult movieDetail) {
         Bundle args = new Bundle();
         args.putParcelable(ARG_MOVIEDETAIL, movieDetail);
         MovieDetailFragment fragment = new MovieDetailFragment();
