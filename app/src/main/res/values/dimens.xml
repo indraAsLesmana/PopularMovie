@@ -31,5 +31,7 @@
     <dimen name="font_d">24sp</dimen>
     <dimen name="font_e">28sp</dimen>
 
+    <dimen name="font_dd">22sp</dimen>
+
 
 </resources>

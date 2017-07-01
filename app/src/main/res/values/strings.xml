@@ -24,5 +24,7 @@
     <string name="def_sortby_label">Sort Movie by</string>
     <string name="def_sortby_key" translatable="false">def_sort</string>
     <string name="def_sortby_default" translatable="false">@string/sort_popular</string>
+    <string name="reviews">Reviews</string>
+    <string name="trailer">trailer</string>
 
 </resources>

@@ -11,11 +11,25 @@
     <LinearLayout
         android:id="@+id/details_content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:paddingLeft="@dimen/margin_a"
         android:paddingRight="@dimen/margin_a"
         android:paddingTop="@dimen/margin_a" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:fontFamily="sans-serif-medium"
+        android:padding="@dimen/margin_b"
+        android:text="@string/reviews"
+        android:textSize="@dimen/font_dd" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/moviedetail_list_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
