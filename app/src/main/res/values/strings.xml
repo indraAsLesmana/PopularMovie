@@ -15,7 +15,7 @@
     <string name="action_search">search</string>
 
     <!--Error message-->
-    <string name="error_generic_server_error">Cant reach the server, %1$s</string>
+    <string name="error_generic_server_error">Cannot reach the server, %1$s</string>
 
     <!--Transition targetname-->
     <string name="transaction_poster">transactionposter</string>
