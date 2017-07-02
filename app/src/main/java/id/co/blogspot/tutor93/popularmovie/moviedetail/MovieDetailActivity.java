@@ -8,10 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 
+import java.util.List;
+
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.base.BaseActivity;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
+import id.co.blogspot.tutor93.popularmovie.data.model.ReviewResult;
+import id.co.blogspot.tutor93.popularmovie.data.model.Reviews;
 import id.co.blogspot.tutor93.popularmovie.utility.widgets.MovieDetailFrameWrapper;
 
 public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.HomeClickView {
@@ -44,6 +48,11 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         initView();
         mMovieDetailPresenter = new MovieDetailPresenter(DataManager.getInstance());
         mMovieDetailPresenter.attachView(this);
+
+        if (mMovieresult != null) {
+            //load Movie review
+            mMovieDetailPresenter.onShowReviewRequest(mMovieresult.id);
+        }
     }
 
     private void initView() {
@@ -64,7 +73,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     @Override
-    public void showReview() {
+    public void showReview(List<ReviewResult> reviewResultList) {
 
     }
 

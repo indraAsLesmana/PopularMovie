@@ -55,7 +55,9 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailContract.Home
             @Override
             public void onSuccess(Reviews response) {
                 mView.hideProgress();
-
+                if (response.results != null) {
+                    mView.showReview(response.results);
+                }
             }
 
             @Override
