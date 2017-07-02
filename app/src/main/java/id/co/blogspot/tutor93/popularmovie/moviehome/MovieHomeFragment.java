@@ -89,7 +89,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         mActivity = (AppCompatActivity) getActivity();
         mActivity.setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
 
-        mMoviesRecycler = (RecyclerView) view.findViewById(R.id.recycler_invitationlist);
+        mMoviesRecycler = (RecyclerView) view.findViewById(R.id.recycler_movielist);
         mMoviesRecycler.setHasFixedSize(true);
         mMoviesRecycler.setMotionEventSplittingEnabled(false);
         mMoviesRecycler.setItemAnimator(new DefaultItemAnimator());
