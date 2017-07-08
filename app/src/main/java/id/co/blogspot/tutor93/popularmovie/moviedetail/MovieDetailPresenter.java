@@ -22,14 +22,17 @@ public class MovieDetailPresenter extends BasePresenter<MovieDetailContract.Home
     }
 
     @Override
-    public void onPlayTrailerRequest(int id) {
+    public void onVideoRequest(final int id) {
         if (!isViewAttached()) return;
         mView.showMessageLayout(false);
         mView.showProgress();
-        mDataManager.getTrailer(id, new RemoteCallback<Videos>() {
+        mDataManager.getVideos(id, new RemoteCallback<Videos>() {
             @Override
             public void onSuccess(Videos response) {
                 mView.hideProgress();
+                if (response.results != null) {
+                    mView.showVideos(response.results);
+                }
             }
 
             @Override

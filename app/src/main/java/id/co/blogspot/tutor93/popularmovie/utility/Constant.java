@@ -35,6 +35,7 @@ public class Constant {
     public @interface PosterSize {}
 
     public static final String BASE_URL_IMAGE = "https://image.tmdb.org/t/p/";
+    public static final String YOUTUBE_THUMBNAIL_URL = "http://img.youtube.com/vi/%1$s/0.jpg";
 
     public static final String POPULAR = "popular";
     public static final String TOP_RATED = "top rated";

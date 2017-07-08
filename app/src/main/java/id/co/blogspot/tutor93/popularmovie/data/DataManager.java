@@ -42,7 +42,7 @@ public class DataManager {
         mMovieService.getReviews(id, BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
     }
 
-    public void getTrailer(int id, RemoteCallback<Videos> listener) {
+    public void getVideos(int id, RemoteCallback<Videos> listener) {
         mMovieService.getVideos(id, BuildConfig.MOVIEDB_APIKEY).enqueue(listener);
     }
 

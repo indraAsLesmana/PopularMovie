@@ -5,6 +5,7 @@ import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.base.RemoteView;
 import id.co.blogspot.tutor93.popularmovie.data.model.ReviewResult;
+import id.co.blogspot.tutor93.popularmovie.data.model.VideoResult;
 
 /**
  * Created by indraaguslesmana on 6/14/17.
@@ -16,13 +17,13 @@ public interface MovieDetailContract {
 
         void onShowReviewRequest(int id);
 
-        void onPlayTrailerRequest(int id);
+        void onVideoRequest(int id);
     }
 
     interface HomeClickView extends RemoteView {
 
         void showReview(List<ReviewResult> reviewResultList);
 
-        void showTrailer();
+        void showVideos(List<VideoResult> videoResults);
     }
 }

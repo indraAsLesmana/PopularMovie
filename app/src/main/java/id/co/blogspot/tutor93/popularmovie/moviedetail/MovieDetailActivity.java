@@ -4,17 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.R;
@@ -22,7 +17,7 @@ import id.co.blogspot.tutor93.popularmovie.base.BaseActivity;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.data.model.ReviewResult;
-import id.co.blogspot.tutor93.popularmovie.data.model.Reviews;
+import id.co.blogspot.tutor93.popularmovie.data.model.VideoResult;
 import id.co.blogspot.tutor93.popularmovie.utility.widgets.MovieDetailFrameWrapper;
 
 public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.HomeClickView {
@@ -32,10 +27,11 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private MovieDetailPresenter mMovieDetailPresenter;
     private MovieResult mMovieresult;
     private LinearLayout mContentFrame;
-    private RecyclerView mMoviesDetailRecycler;
+    private RecyclerView mMoviesDetailReviewsRecycler;
+    private RecyclerView mMoviesDetailVideosRecycler;
     private MovieDetailFrameWrapper mMovieDetailWrapper;
     private MovieDetailReviewAdapter mMovieDetailReviewAdapter;
-    private List<ReviewResult> mReviewResult;
+    private MovieDetailVideoAdapter mMovieDetailVideoAdapter;
 
     public static Intent newStartIntent(Context context, MovieResult movieDetail) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -55,6 +51,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         }
 
         mMovieDetailReviewAdapter = new MovieDetailReviewAdapter();
+        mMovieDetailVideoAdapter = new MovieDetailVideoAdapter();
 
         initView();
         mMovieDetailPresenter = new MovieDetailPresenter(DataManager.getInstance());
@@ -63,6 +60,8 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         if (mMovieresult != null) {
             //load Movie review
             mMovieDetailPresenter.onShowReviewRequest(mMovieresult.id);
+            //load Videos trailer
+            mMovieDetailPresenter.onVideoRequest(mMovieresult.id);
         }
     }
 
@@ -81,12 +80,19 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
             mContentFrame.addView(mMovieDetailWrapper);
         }
 
-        mMoviesDetailRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
-        mMoviesDetailRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mMoviesDetailRecycler.setHasFixedSize(true);
-        mMoviesDetailRecycler.setMotionEventSplittingEnabled(false);
-        mMoviesDetailRecycler.setItemAnimator(new DefaultItemAnimator());
-        mMoviesDetailRecycler.setAdapter(mMovieDetailReviewAdapter);
+        mMoviesDetailReviewsRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
+        mMoviesDetailReviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mMoviesDetailReviewsRecycler.setHasFixedSize(true);
+        mMoviesDetailReviewsRecycler.setMotionEventSplittingEnabled(false);
+        mMoviesDetailReviewsRecycler.setItemAnimator(new DefaultItemAnimator());
+        mMoviesDetailReviewsRecycler.setAdapter(mMovieDetailReviewAdapter);
+
+        mMoviesDetailVideosRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_videos);
+        mMoviesDetailVideosRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mMoviesDetailVideosRecycler.setHasFixedSize(true);
+        mMoviesDetailVideosRecycler.setMotionEventSplittingEnabled(false);
+        mMoviesDetailVideosRecycler.setItemAnimator(new DefaultItemAnimator());
+        mMoviesDetailVideosRecycler.setAdapter(mMovieDetailVideoAdapter);
 
     }
 
@@ -97,8 +103,9 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     @Override
-    public void showTrailer() {
-
+    public void showVideos(List<VideoResult> videoResults) {
+        mMovieDetailVideoAdapter.removeAll();
+        mMovieDetailVideoAdapter.addItems(videoResults);
     }
 
     @Override
