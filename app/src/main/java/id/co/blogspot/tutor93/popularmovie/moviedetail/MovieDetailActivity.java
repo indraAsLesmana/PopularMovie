@@ -44,35 +44,39 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        if (savedInstanceState != null) {
-            mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
-        }else {
-            mMovieresult = getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE);
-        }
+        isSavedInstanceEvaluabe(savedInstanceState);
 
-        mMovieDetailReviewAdapter = new MovieDetailReviewAdapter();
-        mMovieDetailVideoAdapter = new MovieDetailVideoAdapter();
+        initReviewAndVideos();
 
         initView();
         mMovieDetailPresenter = new MovieDetailPresenter(DataManager.getInstance());
         mMovieDetailPresenter.attachView(this);
 
+        loadReviewAndVideos();
+    }
+
+    private void isSavedInstanceEvaluabe(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
+        }else {
+            mMovieresult = getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE);
+        }
+    }
+
+    private void initReviewAndVideos() {
+        mMovieDetailReviewAdapter = new MovieDetailReviewAdapter();
+        mMovieDetailVideoAdapter = new MovieDetailVideoAdapter();
+    }
+
+    private void loadReviewAndVideos() {
         if (mMovieresult != null) {
-            //load Movie review
             mMovieDetailPresenter.onShowReviewRequest(mMovieresult.id);
-            //load Videos trailer
             mMovieDetailPresenter.onVideoRequest(mMovieresult.id);
         }
     }
 
     private void initView() {
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(mMovieresult.title);
-        }
+        setupToolbar();
 
         mContentFrame = (LinearLayout) findViewById(R.id.details_content_frame);
         if (mMovieresult != null){
@@ -80,20 +84,38 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
             mContentFrame.addView(mMovieDetailWrapper);
         }
 
-        mMoviesDetailReviewsRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
-        mMoviesDetailReviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mMoviesDetailReviewsRecycler.setHasFixedSize(true);
-        mMoviesDetailReviewsRecycler.setMotionEventSplittingEnabled(false);
-        mMoviesDetailReviewsRecycler.setItemAnimator(new DefaultItemAnimator());
-        mMoviesDetailReviewsRecycler.setAdapter(mMovieDetailReviewAdapter);
+        initReviewList();
 
+        initVideosList();
+
+    }
+
+    private void initVideosList() {
         mMoviesDetailVideosRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_videos);
         mMoviesDetailVideosRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mMoviesDetailVideosRecycler.setHasFixedSize(true);
         mMoviesDetailVideosRecycler.setMotionEventSplittingEnabled(false);
         mMoviesDetailVideosRecycler.setItemAnimator(new DefaultItemAnimator());
         mMoviesDetailVideosRecycler.setAdapter(mMovieDetailVideoAdapter);
+    }
 
+    private void initReviewList() {
+        mMoviesDetailReviewsRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
+        mMoviesDetailReviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mMoviesDetailReviewsRecycler.setHasFixedSize(true);
+        mMoviesDetailReviewsRecycler.setMotionEventSplittingEnabled(false);
+        mMoviesDetailReviewsRecycler.setItemAnimator(new DefaultItemAnimator());
+        mMoviesDetailReviewsRecycler.setAdapter(mMovieDetailReviewAdapter);
+    }
+
+    private void setupToolbar() {
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(mMovieresult.title);
+        }
     }
 
     @Override

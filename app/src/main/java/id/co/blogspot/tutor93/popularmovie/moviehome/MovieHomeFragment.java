@@ -87,19 +87,12 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
 
     private void initView(View view) {
         mActivity = (AppCompatActivity) getActivity();
-        mActivity.setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
+        setupToolbar(view);
 
-        mMoviesRecycler = (RecyclerView) view.findViewById(R.id.recycler_movielist);
-        mMoviesRecycler.setHasFixedSize(true);
-        mMoviesRecycler.setMotionEventSplittingEnabled(false);
-        mMoviesRecycler.setItemAnimator(new DefaultItemAnimator());
-        mMoviesRecycler.setAdapter(mMovieHomeListAdapter);
+        initMovieLists(view);
 
-        if (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mMoviesRecycler.setLayoutManager(new GridLayoutManager(mActivity, POTRAIT_SPANCOUNT));
-        } else {
-            mMoviesRecycler.setLayoutManager(new GridLayoutManager(mActivity, LANDSCAPE_SPANCOUNT));
-        }
+        checkPhoneOrintation();
+
         mContentFrame = (RelativeLayout) view.findViewById(R.id.details_content_frame);
         mContentLoadingProgress = (ProgressBar) view.findViewById(R.id.progress);
         mMessageLayout = view.findViewById(R.id.message_layout);
@@ -113,6 +106,26 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
             }
         });
 
+    }
+
+    private void checkPhoneOrintation() {
+        if (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mMoviesRecycler.setLayoutManager(new GridLayoutManager(mActivity, POTRAIT_SPANCOUNT));
+        } else {
+            mMoviesRecycler.setLayoutManager(new GridLayoutManager(mActivity, LANDSCAPE_SPANCOUNT));
+        }
+    }
+
+    private void initMovieLists(View view) {
+        mMoviesRecycler = (RecyclerView) view.findViewById(R.id.recycler_movielist);
+        mMoviesRecycler.setHasFixedSize(true);
+        mMoviesRecycler.setMotionEventSplittingEnabled(false);
+        mMoviesRecycler.setItemAnimator(new DefaultItemAnimator());
+        mMoviesRecycler.setAdapter(mMovieHomeListAdapter);
+    }
+
+    private void setupToolbar(View view) {
+        mActivity.setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
     }
 
     @Override
