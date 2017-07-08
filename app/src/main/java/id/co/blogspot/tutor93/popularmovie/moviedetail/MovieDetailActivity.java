@@ -80,7 +80,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
             mMovieDetailWrapper = new MovieDetailFrameWrapper(this, mMovieresult);
             mContentFrame.addView(mMovieDetailWrapper);
         }
-//        mReviewResult = new ArrayList<>();
 
         mMoviesDetailRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
         mMoviesDetailRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -93,9 +92,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     @Override
     public void showReview(List<ReviewResult> reviewResultList) {
-       /* mReviewResult.addAll(reviewResultList);
-        mMovieDetailReviewAdapter.notifyDataSetChanged();*/
-
         mMovieDetailReviewAdapter.removeAll();
         mMovieDetailReviewAdapter.addItems(reviewResultList);
     }
