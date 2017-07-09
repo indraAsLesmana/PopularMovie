@@ -1,17 +1,20 @@
 package id.co.blogspot.tutor93.popularmovie.moviedetail;
 
-import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -27,10 +30,12 @@ import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 import id.co.blogspot.tutor93.popularmovie.utility.widgets.MovieDetailFrameWrapper;
 import id.co.blogspot.tutor93.popularmovie.videoplayer.VideoPlayerYoutube;
+import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
 
 public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.HomeClickView,
-        MovieDetailVideoAdapter.VideoListListener{
+        MovieDetailVideoAdapter.VideoListListener, View.OnClickListener{
 
+    private static final String TAG = "MovieDetailActivity";
     private static final String EXTRA_DETAIL_MOVIE = "movieDetail";
 
     private MovieDetailPresenter mMovieDetailPresenter;
@@ -38,6 +43,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private MovieDetailReviewAdapter mMovieDetailReviewAdapter;
     private MovieDetailVideoAdapter mMovieDetailVideoAdapter;
     private ImageView appBarImage;
+    private FloatingActionButton makeFavoriteBtn;
 
     public static Intent newStartIntent(Context context, MovieResult movieDetail) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -96,6 +102,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         setupToolbar();
 
         appBarImage = (ImageView) findViewById(R.id.app_bar_image);
+        makeFavoriteBtn = (FloatingActionButton) findViewById(R.id.moviedetail_makefavorite_fab);
 
         initMovieDetail();
         initReviewList();
@@ -113,6 +120,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     private void setListener() {
         mMovieDetailVideoAdapter.setVideoListListener(this);
+        makeFavoriteBtn.setOnClickListener(this);
     }
 
     private void initVideosList() {
@@ -198,5 +206,51 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     @Override
     public void onVideoListClick(String movieUrl, int adapterPosition) {
         showVideoTrailer(movieUrl);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.moviedetail_makefavorite_fab:
+                saveFavorite();
+                break;
+        }
+    }
+
+    private void saveFavorite() {
+        ContentValues movieDetail = new ContentValues();
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_VOTECOUNT,
+                mMovieresult.voteCount);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_VIDEO,
+                mMovieresult.video);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_VOTEAVERAGE,
+                mMovieresult.voteAverage);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_TITLE,
+                mMovieresult.title);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_POPULARITY,
+                mMovieresult.popularity);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_POSTERPATH,
+                mMovieresult.posterPath);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_ORIGINALLANGUAGE,
+                mMovieresult.originalLanguage);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_ORIGINALTITLE,
+                mMovieresult.originalTitle);
+        /*movieDetail.put(MovieEntry.COLUMN_MOVIE_GENREIDS,
+                mMovieresult.genreIds);*/
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_BACKDROPPATH,
+                mMovieresult.backdropPath);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_ADULT,
+                mMovieresult.adult);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_OVERVIEW,
+                mMovieresult.overview);
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_RELEASEDATE,
+                mMovieresult.releaseDate);
+
+        Uri uriResult = getContentResolver().insert(MovieEntry.CONTENT_URI,
+                movieDetail);
+
+        if (uriResult != null){
+            Log.i(TAG, uriResult.toString());
+        }
     }
 }

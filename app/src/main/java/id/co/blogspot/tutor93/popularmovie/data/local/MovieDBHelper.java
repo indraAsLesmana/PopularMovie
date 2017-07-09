@@ -48,7 +48,7 @@ public class MovieDBHelper extends SQLiteOpenHelper{
                     MovieEntry.COLUMN_MOVIE_POSTERPATH + " TEXT, " +
                     MovieEntry.COLUMN_MOVIE_ORIGINALLANGUAGE + " TEXT, " +
                     MovieEntry.COLUMN_MOVIE_ORIGINALTITLE + " TEXT, " +
-                    MovieEntry.COLUMN_MOVIE_GENREIDS + " TEXT, " +
+//                    MovieEntry.COLUMN_MOVIE_GENREIDS + " TEXT, " +
                     MovieEntry.COLUMN_MOVIE_BACKDROPPATH + " TEXT, " +
                     MovieEntry.COLUMN_MOVIE_ADULT + " TEXT, " +
                     MovieEntry.COLUMN_MOVIE_OVERVIEW + " TEXT, " +

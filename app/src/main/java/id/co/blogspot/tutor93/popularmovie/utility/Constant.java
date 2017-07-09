@@ -4,6 +4,8 @@ import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 
+import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
+
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
@@ -40,4 +42,21 @@ public class Constant {
 
     public static final String POPULAR = "popular";
     public static final String TOP_RATED = "top rated";
+
+    /** Projection */
+    public static final String [] PROJECTION_ALL_COLUMN = {
+            MovieEntry._ID,
+            MovieEntry.COLUMN_MOVIE_VOTECOUNT,
+            MovieEntry.COLUMN_MOVIE_VIDEO,
+            MovieEntry.COLUMN_MOVIE_VOTEAVERAGE,
+            MovieEntry.COLUMN_MOVIE_TITLE,
+            MovieEntry.COLUMN_MOVIE_POPULARITY,
+            MovieEntry.COLUMN_MOVIE_POSTERPATH,
+            MovieEntry.COLUMN_MOVIE_ORIGINALLANGUAGE,
+            MovieEntry.COLUMN_MOVIE_ORIGINALTITLE,
+            MovieEntry.COLUMN_MOVIE_BACKDROPPATH,
+            MovieEntry.COLUMN_MOVIE_ADULT,
+            MovieEntry.COLUMN_MOVIE_OVERVIEW,
+            MovieEntry.COLUMN_MOVIE_RELEASEDATE
+    };
 }

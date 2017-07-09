@@ -174,7 +174,7 @@ public class MovieProvider extends ContentProvider {
                 values.getAsString(MovieEntry.COLUMN_MOVIE_POSTERPATH).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_ORIGINALLANGUAGE).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_ORIGINALTITLE).isEmpty() ||
-                values.getAsString(MovieEntry.COLUMN_MOVIE_GENREIDS).isEmpty() ||
+//                values.getAsString(MovieEntry.COLUMN_MOVIE_GENREIDS).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_BACKDROPPATH).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_ADULT).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_OVERVIEW).isEmpty() ||
@@ -281,12 +281,12 @@ public class MovieProvider extends ContentProvider {
             }
         }
 
-        if (values.containsKey(MovieEntry.COLUMN_MOVIE_GENREIDS)) {
+        /*if (values.containsKey(MovieEntry.COLUMN_MOVIE_GENREIDS)) {
             String arg = values.getAsString(MovieEntry.COLUMN_MOVIE_GENREIDS);
             if (arg.isEmpty()) {
                 throw new IllegalArgumentException("Movie requires valid gendre ids");
             }
-        }
+        }*/
 
         if (values.containsKey(MovieEntry.COLUMN_MOVIE_BACKDROPPATH)) {
             String arg = values.getAsString(MovieEntry.COLUMN_MOVIE_BACKDROPPATH);

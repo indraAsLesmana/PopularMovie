@@ -1,7 +1,9 @@
 package id.co.blogspot.tutor93.popularmovie.moviehome;
 
 
+import android.content.CursorLoader;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -22,20 +24,24 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.app.LoaderManager;
+import android.content.Loader;
 
 import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
+import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.moviedetail.MovieDetailActivity;
+import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MovieHomeFragment extends Fragment implements MovieHomeContract.MovielistView,
-        MovieHomeListAdapter.MovieListListener, View.OnClickListener {
+        MovieHomeListAdapter.MovieListListener, View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int LANDSCAPE_SPANCOUNT = 4;
     private static final int POTRAIT_SPANCOUNT = 2;
@@ -53,6 +59,8 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     private ImageView mMessageImage;
     private TextView mMessageText;
     private Button mMessageButton;
+
+    private boolean isFavoriteTableEmpety;
 
     public static MovieHomeFragment newInstance() {
         return new MovieHomeFragment();
@@ -136,6 +144,10 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
             case R.id.action_sortby_toprated:
                 PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_toprated));
                 onRefresh();
+                break;
+            case R.id.action_sortby_favorite:
+                PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_favorite));
+
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -227,5 +239,26 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         if (v.getId() == R.id.btn_try_again) {
             onRefresh();
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(
+                mActivity,
+                MovieEntry.CONTENT_URI,
+                Constant.PROJECTION_ALL_COLUMN,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

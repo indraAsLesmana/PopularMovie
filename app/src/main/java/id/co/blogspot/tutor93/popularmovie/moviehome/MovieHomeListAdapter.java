@@ -1,5 +1,6 @@
 package id.co.blogspot.tutor93.popularmovie.moviehome;
 
+import android.database.Cursor;
 import android.support.annotation.IntDef;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -137,6 +138,22 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
         mMoviePopularsList.addAll(itemsList);
         notifyItemRangeInserted(getItemCount(), mMoviePopularsList.size() - 1);
     }
+
+    /**
+     * Swaps the Cursor currently held in the adapter with a new one
+     * and triggers a UI refresh
+     *
+     * @param newCursor the new cursor that will replace the existing one
+     */
+    /*public void swapCursor(Cursor newCursor) {
+        // Always close the previous mCursor first
+        if (mCursor != null) mCursor.close();
+        mCursor = newCursor;
+        if (newCursor != null) {
+            // Force the RecyclerView to refresh
+            this.notifyDataSetChanged();
+        }
+    }*/
 
     /**
      * ViewHolders
