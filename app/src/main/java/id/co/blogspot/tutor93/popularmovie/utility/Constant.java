@@ -22,7 +22,6 @@ public class Constant {
     public static final String POSTERSIZE_w342 = "w342";
     public static final String POSTERSIZE_w500 = "w500";
     public static final String POSTERSIZE_w780 = "w780";
-    public static final String YOUTUBE_KEY = "AIzaSyDgqL0ywZiR2sc7Comn1FHh47ikEhsIbzc";
 
     @Retention(SOURCE)
     @StringDef({

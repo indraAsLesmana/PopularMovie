@@ -26,7 +26,6 @@ import id.co.blogspot.tutor93.popularmovie.data.model.VideoResult;
 import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 import id.co.blogspot.tutor93.popularmovie.utility.widgets.MovieDetailFrameWrapper;
-import id.co.blogspot.tutor93.popularmovie.videoplayer.VideoPlayerActivity2;
 import id.co.blogspot.tutor93.popularmovie.videoplayer.VideoPlayerYoutube;
 
 public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.HomeClickView,

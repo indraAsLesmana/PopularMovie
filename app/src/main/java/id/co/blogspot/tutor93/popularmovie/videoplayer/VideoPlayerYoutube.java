@@ -10,8 +10,8 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import id.co.blogspot.tutor93.popularmovie.BuildConfig;
 import id.co.blogspot.tutor93.popularmovie.R;
-import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 
 /**
  * Created by indraaguslesmana on 7/9/17.
@@ -33,10 +33,18 @@ public class VideoPlayerYoutube extends YouTubeBaseActivity
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        setContentView(R.layout.videoplayer_youtube);
+        setContentView(R.layout.activity_videoplayeryoutube);
 
+        initView();
+    }
+
+    private void initView() {
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
-        youTubeView.initialize(Constant.YOUTUBE_KEY, this);
+        initYoutubePlayer();
+    }
+
+    private void initYoutubePlayer() {
+        youTubeView.initialize(BuildConfig.YOUTUBE_DATAKEY, this);
     }
 
     @Override
@@ -57,7 +65,7 @@ public class VideoPlayerYoutube extends YouTubeBaseActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RECOVERY_REQUEST) {
-            getYouTubePlayerProvider().initialize(Constant.YOUTUBE_KEY, this);
+            getYouTubePlayerProvider().initialize(BuildConfig.YOUTUBE_DATAKEY, this);
         }
     }
 

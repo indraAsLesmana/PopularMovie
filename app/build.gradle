@@ -31,10 +31,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField 'String', 'MOVIEDB_APIKEY', MyMovieDbApiKey
+            buildConfigField 'String', 'YOUTUBE_DATAKEY', YoutubeDataKey
         }
         debug {
             buildConfigField 'String', 'MOVIEDB_APIKEY', MyMovieDbApiKey
-
+            buildConfigField 'String', 'YOUTUBE_DATAKEY', YoutubeDataKey
         }
     }
 }
@@ -47,8 +48,6 @@ dependencies {
     //ButterKnife
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    //Google exoplayer
-    compile 'com.google.android.exoplayer:exoplayer:r2.4.3'
     //Youtube player
     compile files('libs/YouTubeAndroidPlayerApi.jar')
 
