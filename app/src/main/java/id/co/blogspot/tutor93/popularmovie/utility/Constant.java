@@ -22,6 +22,7 @@ public class Constant {
     public static final String POSTERSIZE_w342 = "w342";
     public static final String POSTERSIZE_w500 = "w500";
     public static final String POSTERSIZE_w780 = "w780";
+    public static final String YOUTUBE_KEY = "AIzaSyDgqL0ywZiR2sc7Comn1FHh47ikEhsIbzc";
 
     @Retention(SOURCE)
     @StringDef({
@@ -36,6 +37,7 @@ public class Constant {
 
     public static final String BASE_URL_IMAGE = "https://image.tmdb.org/t/p/";
     public static final String YOUTUBE_THUMBNAIL_URL = "http://img.youtube.com/vi/%1$s/0.jpg";
+    public static final String YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v=%1$s";
 
     public static final String POPULAR = "popular";
     public static final String TOP_RATED = "top rated";

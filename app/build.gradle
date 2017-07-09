@@ -47,6 +47,10 @@ dependencies {
     //ButterKnife
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    //Google exoplayer
+    compile 'com.google.android.exoplayer:exoplayer:r2.4.3'
+    //Youtube player
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
 
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'

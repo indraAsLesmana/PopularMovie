@@ -156,10 +156,10 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
         public final ImageView imageItem;
         public final View listItem;
 
-        public CharacterViewHolder(View view) {
-            super(view);
-            imageItem = (AppCompatImageView) view.findViewById(R.id.home_itemimage);
-            listItem = view;
+        public CharacterViewHolder(View itemView) {
+            super(itemView);
+            imageItem = (AppCompatImageView) itemView.findViewById(R.id.home_itemimage);
+            listItem = itemView;
             listItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

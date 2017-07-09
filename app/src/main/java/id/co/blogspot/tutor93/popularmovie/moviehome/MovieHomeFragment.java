@@ -35,7 +35,7 @@ import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
  * A simple {@link Fragment} subclass.
  */
 public class MovieHomeFragment extends Fragment implements MovieHomeContract.MovielistView,
-        MovieHomeListAdapter.MovieListListener {
+        MovieHomeListAdapter.MovieListListener, View.OnClickListener {
 
     private static final int LANDSCAPE_SPANCOUNT = 4;
     private static final int POTRAIT_SPANCOUNT = 2;
@@ -77,7 +77,6 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
 
         initView(view);
         mMovieHomePresenter.attachView(this);
-        mMovieHomeListAdapter.setMovieListListener(this);
         if (mMovieHomeListAdapter.isEmpty()) {
             mMovieHomePresenter.onInitialListRequested(
                     PrefenceUtils.getSinglePrefrenceString(mActivity, R.string.def_sortby_key));
@@ -88,10 +87,8 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     private void initView(View view) {
         mActivity = (AppCompatActivity) getActivity();
         setupToolbar(view);
-
         initMovieLists(view);
-
-        checkPhoneOrintation();
+        checkPhoneOrientation();
 
         mContentFrame = (RelativeLayout) view.findViewById(R.id.details_content_frame);
         mContentLoadingProgress = (ProgressBar) view.findViewById(R.id.progress);
@@ -99,16 +96,16 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         mMessageImage = (ImageView) view.findViewById(R.id.iv_message);
         mMessageText = (AppCompatTextView) view.findViewById(R.id.tv_message);
         mMessageButton = (Button) view.findViewById(R.id.btn_try_again);
-        mMessageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onRefresh();
-            }
-        });
 
+        setListener();
     }
 
-    private void checkPhoneOrintation() {
+    private void setListener() {
+        mMessageButton.setOnClickListener(this);
+        mMovieHomeListAdapter.setMovieListListener(this);
+    }
+
+    private void checkPhoneOrientation() {
         if (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mMoviesRecycler.setLayoutManager(new GridLayoutManager(mActivity, POTRAIT_SPANCOUNT));
         } else {
@@ -223,5 +220,12 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     private Bundle makeTransitionBundle(View sharedElementView) {
         return ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                 sharedElementView, ViewCompat.getTransitionName(sharedElementView)).toBundle();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_try_again) {
+            onRefresh();
+        }
     }
 }

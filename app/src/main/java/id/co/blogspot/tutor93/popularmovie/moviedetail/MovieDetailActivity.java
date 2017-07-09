@@ -1,5 +1,6 @@
 package id.co.blogspot.tutor93.popularmovie.moviedetail;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -18,20 +23,22 @@ import id.co.blogspot.tutor93.popularmovie.data.DataManager;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.data.model.ReviewResult;
 import id.co.blogspot.tutor93.popularmovie.data.model.VideoResult;
+import id.co.blogspot.tutor93.popularmovie.utility.Constant;
+import id.co.blogspot.tutor93.popularmovie.utility.Helper;
 import id.co.blogspot.tutor93.popularmovie.utility.widgets.MovieDetailFrameWrapper;
+import id.co.blogspot.tutor93.popularmovie.videoplayer.VideoPlayerActivity2;
+import id.co.blogspot.tutor93.popularmovie.videoplayer.VideoPlayerYoutube;
 
-public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.HomeClickView {
+public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.HomeClickView,
+        MovieDetailVideoAdapter.VideoListListener{
 
     private static final String EXTRA_DETAIL_MOVIE = "movieDetail";
 
     private MovieDetailPresenter mMovieDetailPresenter;
     private MovieResult mMovieresult;
-    private LinearLayout mContentFrame;
-    private RecyclerView mMoviesDetailReviewsRecycler;
-    private RecyclerView mMoviesDetailVideosRecycler;
-    private MovieDetailFrameWrapper mMovieDetailWrapper;
     private MovieDetailReviewAdapter mMovieDetailReviewAdapter;
     private MovieDetailVideoAdapter mMovieDetailVideoAdapter;
+    private ImageView appBarImage;
 
     public static Intent newStartIntent(Context context, MovieResult movieDetail) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -45,14 +52,25 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         setContentView(R.layout.activity_movie_detail);
 
         isSavedInstanceEvaluabe(savedInstanceState);
-
         initReviewAndVideos();
-
         initView();
+
         mMovieDetailPresenter = new MovieDetailPresenter(DataManager.getInstance());
         mMovieDetailPresenter.attachView(this);
 
         loadReviewAndVideos();
+        loadAppbarImage();
+    }
+
+    private void loadAppbarImage() {
+        if (mMovieresult.posterPath != null) {
+            Glide.with(this)
+                    .load(Helper.getComplateImageUrl(mMovieresult.backdropPath, Constant.POSTERSIZE_w500))
+                    .error(R.drawable.ic_error_list)
+                    .centerCrop()
+                    .crossFade()
+                    .into(appBarImage);
+        }
     }
 
     private void isSavedInstanceEvaluabe(Bundle savedInstanceState) {
@@ -78,20 +96,28 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private void initView() {
         setupToolbar();
 
-        mContentFrame = (LinearLayout) findViewById(R.id.details_content_frame);
-        if (mMovieresult != null){
-            mMovieDetailWrapper = new MovieDetailFrameWrapper(this, mMovieresult);
+        appBarImage = (ImageView) findViewById(R.id.app_bar_image);
+
+        initMovieDetail();
+        initReviewList();
+        initVideosList();
+        setListener();
+    }
+
+    private void initMovieDetail() {
+        LinearLayout mContentFrame = (LinearLayout) findViewById(R.id.details_content_frame);
+        if (mMovieresult != null) {
+            MovieDetailFrameWrapper mMovieDetailWrapper = new MovieDetailFrameWrapper(this, mMovieresult);
             mContentFrame.addView(mMovieDetailWrapper);
         }
+    }
 
-        initReviewList();
-
-        initVideosList();
-
+    private void setListener() {
+        mMovieDetailVideoAdapter.setVideoListListener(this);
     }
 
     private void initVideosList() {
-        mMoviesDetailVideosRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_videos);
+        RecyclerView mMoviesDetailVideosRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_videos);
         mMoviesDetailVideosRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mMoviesDetailVideosRecycler.setHasFixedSize(true);
         mMoviesDetailVideosRecycler.setMotionEventSplittingEnabled(false);
@@ -100,7 +126,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     private void initReviewList() {
-        mMoviesDetailReviewsRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
+        RecyclerView mMoviesDetailReviewsRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
         mMoviesDetailReviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
         mMoviesDetailReviewsRecycler.setHasFixedSize(true);
         mMoviesDetailReviewsRecycler.setMotionEventSplittingEnabled(false);
@@ -119,7 +145,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     @Override
-    public void showReview(List<ReviewResult> reviewResultList) {
+    public void showReviews(List<ReviewResult> reviewResultList) {
         mMovieDetailReviewAdapter.removeAll();
         mMovieDetailReviewAdapter.addItems(reviewResultList);
     }
@@ -128,6 +154,16 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     public void showVideos(List<VideoResult> videoResults) {
         mMovieDetailVideoAdapter.removeAll();
         mMovieDetailVideoAdapter.addItems(videoResults);
+    }
+
+    @Override
+    public void showVideoTrailer(String movieUrl) {
+        startActivity(VideoPlayerYoutube.newStartIntent(this, movieUrl));
+    }
+
+    @Override
+    public void showReviewItemFull() {
+
     }
 
     @Override
@@ -158,5 +194,10 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     @Override
     public void showMessageLayout(boolean show) {
 
+    }
+
+    @Override
+    public void onVideoListClick(String movieUrl, int adapterPosition) {
+        showVideoTrailer(movieUrl);
     }
 }

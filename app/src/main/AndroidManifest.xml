@@ -21,6 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".moviedetail.MovieDetailActivity"/>
+        <activity android:name=".videoplayer.VideoPlayerActivity2"/>
+        <activity
+            android:name=".videoplayer.VideoPlayerYoutube"
+            android:theme="@style/Theme.customDialog" />
+
     </application>
 
 </manifest>

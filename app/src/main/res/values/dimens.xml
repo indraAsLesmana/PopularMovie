@@ -24,6 +24,10 @@
     <dimen name="height_a">120dp</dimen>
     <dimen name="height_b">140dp</dimen>
     <dimen name="height_c">160dp</dimen>
+    <dimen name="height_d">180dp</dimen>
+    <dimen name="height_e">200dp</dimen>
+    <dimen name="height_f">220dp</dimen>
+    <dimen name="height_g">240dp</dimen>
 
     <dimen name="font_a">12sp</dimen>
     <dimen name="font_b">14sp</dimen>

@@ -22,8 +22,12 @@ public interface MovieDetailContract {
 
     interface HomeClickView extends RemoteView {
 
-        void showReview(List<ReviewResult> reviewResultList);
+        void showReviews(List<ReviewResult> reviewResultList);
 
         void showVideos(List<VideoResult> videoResults);
+
+        void showVideoTrailer(String movieUrl);
+
+        void showReviewItemFull();
     }
 }
