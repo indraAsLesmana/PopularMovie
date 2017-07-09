@@ -92,6 +92,7 @@
         android:layout_marginRight="16dp"
         android:clickable="true"
         android:src="@drawable/ic_favorite"
+        app:backgroundTint="@android:color/holo_red_dark"
         app:fabSize="normal"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
