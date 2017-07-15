@@ -41,6 +41,7 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
              public void onSuccess(Movies response) {
                  mView.hideProgress();
                  if (!isViewAttached()) return;
+
                  List<MovieResult> responseResults = response.results;
                  if (responseResults.isEmpty()) {
                      mView.showEmpty();

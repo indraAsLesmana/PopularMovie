@@ -22,6 +22,7 @@ import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.Helper;
+import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
 
 /**
  * Created by indraaguslesmana on 6/16/17.
@@ -145,15 +146,51 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
      *
      * @param newCursor the new cursor that will replace the existing one
      */
-    /*public void swapCursor(Cursor newCursor) {
-        // Always close the previous mCursor first
-        if (mCursor != null) mCursor.close();
-        mCursor = newCursor;
-        if (newCursor != null) {
-            // Force the RecyclerView to refresh
-            this.notifyDataSetChanged();
+    public void swapCursor(Cursor newCursor) {
+        if (newCursor == null){
+            return;
         }
-    }*/
+        List<MovieResult> movies = new ArrayList<>();
+        
+        int positionMovieId = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_ID);
+        int positionVoteCount = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_VOTECOUNT);
+        int positionVideo = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_VIDEO);
+        int positionVoteAverage = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_VOTEAVERAGE);
+        int positionTitle = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_TITLE);
+        int positionPopularity = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_POPULARITY);
+        int positionPosterpath = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_POSTERPATH);
+        int positionOriginalLanguage = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_ORIGINALLANGUAGE);
+        int positionOriginalTitle = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_ORIGINALTITLE);
+        int positionBackdroppath = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_BACKDROPPATH);
+        int positionAdult = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_ADULT);
+        int positionOverview = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_OVERVIEW);
+        int positionReleaseDate = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_RELEASEDATE);
+
+        if (newCursor.moveToFirst()) {
+            while(newCursor.moveToNext()) {
+                MovieResult movieResult = new MovieResult (
+                        newCursor.getInt(positionMovieId),
+                        newCursor.getInt(positionVoteCount),
+                        Boolean.getBoolean(newCursor.getString(positionVideo)),
+                        newCursor.getDouble(positionVoteAverage),
+                        newCursor.getString(positionTitle),
+                        newCursor.getDouble(positionPopularity),
+                        newCursor.getString(positionPosterpath),
+                        newCursor.getString(positionOriginalLanguage),
+                        newCursor.getString(positionOriginalTitle),
+                        null,
+                        newCursor.getString(positionBackdroppath),
+                        Boolean.getBoolean(newCursor.getString(positionAdult)),
+                        newCursor.getString(positionOverview),
+                        newCursor.getString(positionReleaseDate));
+
+                movies.add(movieResult);
+            }
+
+            addItems(movies);
+        }
+
+    }
 
     /**
      * ViewHolders

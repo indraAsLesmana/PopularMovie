@@ -1,5 +1,6 @@
 package id.co.blogspot.tutor93.popularmovie.moviehome;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
@@ -22,10 +23,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import id.co.blogspot.tutor93.popularmovie.PopularMovie;
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
+import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.moviedetail.MovieDetailActivity;
 import id.co.blogspot.tutor93.popularmovie.seedb.SeeDBActivity;
@@ -45,7 +49,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
 
     private MovieHomePresenter mMovieHomePresenter;
     private MovieHomeListAdapter mMovieHomeListAdapter;
-    
+
     private RecyclerView mMoviesRecycler;
     private ProgressBar mContentLoadingProgress;
 
@@ -141,7 +145,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
                 break;
             case R.id.action_sortby_favorite:
                 PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_favorite));
-
+                onFavoriteClick();
                 break;
             case R.id.action_seedb:
                 startActivity(SeeDBActivity.newStartIntent(mActivity));
@@ -154,6 +158,22 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         mMovieHomeListAdapter.removeAll();
         mMovieHomePresenter.onInitialListRequested(
                 PrefenceUtils.getSinglePrefrenceString(mActivity, R.string.def_sortby_key));
+    }
+
+    private void onFavoriteClick(){
+        Cursor mData;
+        mData = PopularMovie.getmDb().query(
+                MovieEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        mMovieHomeListAdapter.removeAll();
+        mMovieHomeListAdapter.swapCursor(mData);
     }
 
     @Override
