@@ -173,7 +173,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         );
 
         mMovieHomeListAdapter.removeAll();
-        mMovieHomeListAdapter.swapCursor(mData);
+        mMovieHomePresenter.onFavoriteRequested(mData);
     }
 
     @Override
