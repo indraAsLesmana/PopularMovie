@@ -1,13 +1,6 @@
 package id.co.blogspot.tutor93.popularmovie.moviehome;
 
-
-
-import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.CursorAdapter;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -28,25 +21,21 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
-import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.moviedetail.MovieDetailActivity;
 import id.co.blogspot.tutor93.popularmovie.seedb.SeeDBActivity;
-import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MovieHomeFragment extends Fragment implements MovieHomeContract.MovielistView,
-        MovieHomeListAdapter.MovieListListener, View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+        MovieHomeListAdapter.MovieListListener, View.OnClickListener {
 
     private static final int LANDSCAPE_SPANCOUNT = 4;
     private static final int POTRAIT_SPANCOUNT = 2;
@@ -152,7 +141,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
                 break;
             case R.id.action_sortby_favorite:
                 PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_favorite));
-                onFavoriteClick();
+
                 break;
             case R.id.action_seedb:
                 startActivity(SeeDBActivity.newStartIntent(mActivity));
@@ -165,10 +154,6 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         mMovieHomeListAdapter.removeAll();
         mMovieHomePresenter.onInitialListRequested(
                 PrefenceUtils.getSinglePrefrenceString(mActivity, R.string.def_sortby_key));
-    }
-
-    private void onFavoriteClick() {
-        getLoaderManager().initLoader(1, null, this);
     }
 
     @Override
@@ -251,74 +236,5 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         if (v.getId() == R.id.btn_try_again) {
             onRefresh();
         }
-    }
-
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(mActivity,
-                MovieEntry.CONTENT_URI,
-                Constant.PROJECTION_ALL_COLUMN,
-                null,
-                null,
-                null
-        );
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-//        mCursorAdapter.swapCursor(data);
-        Cursor mData = data;
-
-        int positionMovieId = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_ID);
-        int positionVoteCount = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_VOTECOUNT);
-        int positionVideo = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_VIDEO);
-        int positionVoteAverage = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_VOTEAVERAGE);
-        int positionTitle = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_TITLE);
-        int positionPopularity = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_POPULARITY);
-        int positionPosterpath = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_POSTERPATH);
-        int positionOriginalLanguage = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_ORIGINALLANGUAGE);
-        int positionOriginalTitle = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_ORIGINALTITLE);
-        int positionBackdroppath = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_BACKDROPPATH);
-        int positionAdult = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_ADULT);
-        int positionOverview = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_OVERVIEW);
-        int positionReleaseDate = data.getColumnIndex(MovieEntry.COLUMN_MOVIE_RELEASEDATE);
-
-        List<MovieResult> movies = new ArrayList<>();
-
-        /** checking is table empety or not*/
-        if(data.moveToFirst()){  // if on table can move to first data, table not empety
-            isFavoriteTableEmpety = false;
-
-            while(mData.moveToNext()) {
-                MovieResult movieResult = new MovieResult (
-                        mData.getInt(positionMovieId),
-                        mData.getInt(positionVoteCount),
-                        Boolean.getBoolean(mData.getString(positionVideo)),
-                        mData.getDouble(positionVoteAverage),
-                        mData.getString(positionTitle),
-                        mData.getDouble(positionPopularity),
-                        mData.getString(positionPosterpath),
-                        mData.getString(positionOriginalLanguage),
-                        mData.getString(positionOriginalTitle),
-                        null,
-                        mData.getString(positionBackdroppath),
-                        Boolean.getBoolean(mData.getString(positionAdult)),
-                        mData.getString(positionOverview),
-                        mData.getString(positionReleaseDate));
-
-                  movies.add(movieResult);
-            }
-
-            showMovielist(movies);
-
-        }else {
-            isFavoriteTableEmpety = true;
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-//      mCursorAdapter.swapCursor(null);
     }
 }
