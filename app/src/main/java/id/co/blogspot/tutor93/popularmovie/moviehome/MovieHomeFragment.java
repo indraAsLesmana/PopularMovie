@@ -32,6 +32,7 @@ import java.util.List;
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
 import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
+import id.co.blogspot.tutor93.popularmovie.data.local.MovieSyncUtils;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.moviedetail.MovieDetailActivity;
 import id.co.blogspot.tutor93.popularmovie.utility.Constant;
@@ -147,7 +148,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
                 break;
             case R.id.action_sortby_favorite:
                 PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_favorite));
-
+                MovieSyncUtils.TriggerRefresh();
                 break;
         }
         return super.onOptionsItemSelected(item);
