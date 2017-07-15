@@ -29,6 +29,7 @@ public final class MovieContract {
          * */
         public static final String _ID = BaseColumns._ID;
 
+        public static final String COLUMN_MOVIE_ID = "movieId";
         public static final String COLUMN_MOVIE_VOTECOUNT = "voteCount";
         public static final String COLUMN_MOVIE_VIDEO = "video";
         public static final String COLUMN_MOVIE_VOTEAVERAGE = "voteAverage";

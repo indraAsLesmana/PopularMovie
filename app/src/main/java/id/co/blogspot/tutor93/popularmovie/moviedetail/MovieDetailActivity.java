@@ -222,6 +222,9 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     private void saveFavorite() {
         ContentValues movieDetail = new ContentValues();
+
+        movieDetail.put(MovieEntry.COLUMN_MOVIE_ID,
+                mMovieresult.id);
         movieDetail.put(MovieEntry.COLUMN_MOVIE_VOTECOUNT,
                 mMovieresult.voteCount);
         movieDetail.put(MovieEntry.COLUMN_MOVIE_VIDEO,

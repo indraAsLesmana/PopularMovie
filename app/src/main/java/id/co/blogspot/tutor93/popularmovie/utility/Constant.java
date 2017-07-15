@@ -46,6 +46,7 @@ public class Constant {
     /** Projection */
     public static final String [] PROJECTION_ALL_COLUMN = {
             MovieEntry._ID,
+            MovieEntry.COLUMN_MOVIE_ID,
             MovieEntry.COLUMN_MOVIE_VOTECOUNT,
             MovieEntry.COLUMN_MOVIE_VIDEO,
             MovieEntry.COLUMN_MOVIE_VOTEAVERAGE,

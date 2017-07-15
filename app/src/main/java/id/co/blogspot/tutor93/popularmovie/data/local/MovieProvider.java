@@ -166,7 +166,8 @@ public class MovieProvider extends ContentProvider {
 
     private boolean inputCheck(ContentValues values) {
         boolean inputResult = true;
-        if (values.getAsInteger(MovieEntry.COLUMN_MOVIE_VOTECOUNT) == null ||
+        if (values.getAsInteger(MovieEntry.COLUMN_MOVIE_ID) == null ||
+                values.getAsInteger(MovieEntry.COLUMN_MOVIE_VOTECOUNT) == null ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_VIDEO).isEmpty() ||
                 values.getAsDouble(MovieEntry.COLUMN_MOVIE_VOTEAVERAGE) == null ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_TITLE).isEmpty() ||
@@ -224,6 +225,13 @@ public class MovieProvider extends ContentProvider {
      * Return the number of rows that were successfully updated.
      */
     private int updateMovie(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+
+        if (values.containsKey(MovieEntry.COLUMN_MOVIE_ID)) {
+            Integer voteCount = values.getAsInteger(MovieEntry.COLUMN_MOVIE_ID);
+            if (voteCount == null) {
+                throw new IllegalArgumentException("Movie requires a movie ID");
+            }
+        }
 
         if (values.containsKey(MovieEntry.COLUMN_MOVIE_VOTECOUNT)) {
             Integer voteCount = values.getAsInteger(MovieEntry.COLUMN_MOVIE_VOTECOUNT);

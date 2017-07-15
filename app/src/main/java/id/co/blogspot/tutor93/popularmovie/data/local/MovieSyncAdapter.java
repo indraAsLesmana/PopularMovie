@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +39,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
     /** Projection */
     public static final String [] PROJECTION = {
             MovieEntry._ID,
+            MovieEntry.COLUMN_MOVIE_ID,
             MovieEntry.COLUMN_MOVIE_VOTECOUNT,
             MovieEntry.COLUMN_MOVIE_VIDEO,
             MovieEntry.COLUMN_MOVIE_VOTEAVERAGE,
@@ -56,7 +55,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
     };
 
     // Constants representing column positions from PROJECTION.
-    public static final int COLUMN_ID = 1;
+    public static final int COLUMN_MOVIE_ID = 1;
     public static final int COLUMN_MOVIE_VOTECOUNT = 2;
     public static final int COLUMN_MOVIE_VIDEO = 3;
     public static final int COLUMN_MOVIE_VOTEAVERAGE = 4;
@@ -134,7 +133,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
 
         while (c.moveToNext()) {
             syncResult.stats.numEntries++;
-            id = c.getInt(COLUMN_ID);
+            id = c.getInt(COLUMN_MOVIE_ID);
             voteCount = c.getInt(COLUMN_MOVIE_VOTECOUNT);
             video = c.getString(COLUMN_MOVIE_VIDEO);
             voteAverage = c.getDouble(COLUMN_MOVIE_VOTEAVERAGE);
@@ -162,6 +161,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
                     // Update existing record
                     Log.i(TAG, "Scheduling update: " + existingUri);
                     batch.add(ContentProviderOperation.newUpdate(existingUri)
+                            .withValue(MovieEntry.COLUMN_MOVIE_ID, match.id)
                             .withValue(MovieEntry.COLUMN_MOVIE_VOTECOUNT, match.voteCount)
                             .withValue(MovieEntry.COLUMN_MOVIE_VIDEO, match.video)
                             .withValue(MovieEntry.COLUMN_MOVIE_VOTEAVERAGE, match.voteAverage)
@@ -194,6 +194,7 @@ public class MovieSyncAdapter extends AbstractThreadedSyncAdapter {
         for (MovieResult e : entryMap.values()) {
             Log.i(TAG, "Scheduling insert: entry_id=" + e.id);
             batch.add(ContentProviderOperation.newInsert(MovieEntry.CONTENT_URI)
+                    .withValue(MovieEntry.COLUMN_MOVIE_ID, e.id)
                     .withValue(MovieEntry.COLUMN_MOVIE_VOTECOUNT, e.voteCount)
                     .withValue(MovieEntry.COLUMN_MOVIE_VIDEO, e.video)
                     .withValue(MovieEntry.COLUMN_MOVIE_VOTEAVERAGE, e.voteAverage)
