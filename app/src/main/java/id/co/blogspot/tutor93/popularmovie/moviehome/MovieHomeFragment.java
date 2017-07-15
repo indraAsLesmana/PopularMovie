@@ -35,6 +35,7 @@ import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
 import id.co.blogspot.tutor93.popularmovie.data.local.MovieSyncUtils;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.moviedetail.MovieDetailActivity;
+import id.co.blogspot.tutor93.popularmovie.seedb.SeeDBActivity;
 import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 import id.co.blogspot.tutor93.popularmovie.utility.PrefenceUtils;
 
@@ -149,6 +150,9 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
             case R.id.action_sortby_favorite:
                 PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_favorite));
                 MovieSyncUtils.TriggerRefresh();
+                break;
+            case R.id.action_seedb:
+                startActivity(SeeDBActivity.newStartIntent(mActivity));
                 break;
         }
         return super.onOptionsItemSelected(item);

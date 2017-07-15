@@ -14,4 +14,8 @@
         android:id="@+id/action_sortby_favorite"
         android:title="@string/favorite"/>
 
+    <item
+        android:id="@+id/action_seedb"
+        android:title="@string/seedb"/>
+
 </menu>

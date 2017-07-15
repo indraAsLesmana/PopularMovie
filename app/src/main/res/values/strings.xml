@@ -30,6 +30,11 @@
 
     <string name="player_error">Error initializing YouTube player: %s</string>
     <string name="favorite">Favorite</string>
+    <string name="seedb">seeDB</string>
+    <string name="empety_text_title">It\\\'s Lonnely here...</string>
+    <string name="empety_message">data is null add some movie here</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
 
 
 </resources>

@@ -45,6 +45,8 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private ImageView appBarImage;
     private FloatingActionButton makeFavoriteBtn;
 
+    private Uri uriResult;
+
     public static Intent newStartIntent(Context context, MovieResult movieDetail) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
         intent.putExtra(EXTRA_DETAIL_MOVIE, movieDetail);
@@ -120,7 +122,12 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     private void setListener() {
         mMovieDetailVideoAdapter.setVideoListListener(this);
-        makeFavoriteBtn.setOnClickListener(this);
+        makeFavoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveFavorite();
+            }
+        });
     }
 
     private void initVideosList() {
@@ -210,11 +217,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.moviedetail_makefavorite_fab:
-                saveFavorite();
-                break;
-        }
+
     }
 
     private void saveFavorite() {
