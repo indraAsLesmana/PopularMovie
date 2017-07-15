@@ -19,7 +19,7 @@ import id.co.blogspot.tutor93.popularmovie.utility.Constant;
  */
 
 public class MovieHomePresenter extends BasePresenter<MovieHomeContract.MovielistView>
-        implements MovieHomeContract.ViewActions{
+        implements MovieHomeContract.ViewActions {
 
     private final DataManager mDataManager;
 
@@ -41,35 +41,35 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
         if (!isViewAttached()) return;
         mView.showProgress();
         if (newCursor == null) {
+            mView.hideProgress();
+            mView.showError("you dont have any favorite");
             return;
         }
 
         List<MovieResult> movies = new ArrayList<>();
 
-        if (newCursor.moveToFirst()) {
-            while(newCursor.moveToNext()) {
-                MovieResult movieResult = new MovieResult (
-                        newCursor.getInt(Constant.COLUMN_MOVIE_ID),
-                        newCursor.getInt(Constant.COLUMN_MOVIE_VOTECOUNT),
-                        Boolean.getBoolean(newCursor.getString(Constant.COLUMN_MOVIE_VIDEO)),
-                        newCursor.getDouble(Constant.COLUMN_MOVIE_VOTEAVERAGE),
-                        newCursor.getString(Constant.COLUMN_MOVIE_TITLE),
-                        newCursor.getDouble(Constant.COLUMN_MOVIE_POPULARITY),
-                        newCursor.getString(Constant.COLUMN_MOVIE_POSTERPATH),
-                        newCursor.getString(Constant.COLUMN_MOVIE_ORIGINALLANGUAGE),
-                        newCursor.getString(Constant.COLUMN_MOVIE_ORIGINALTITLE),
-                        null,
-                        newCursor.getString(Constant.COLUMN_MOVIE_BACKDROPPATH),
-                        Boolean.getBoolean(newCursor.getString(Constant.COLUMN_MOVIE_ADULT)),
-                        newCursor.getString(Constant.COLUMN_MOVIE_OVERVIEW),
-                        newCursor.getString(Constant.COLUMN_MOVIE_RELEASEDATE));
+        while (newCursor.moveToNext()) {
+            MovieResult movieResult = new MovieResult(
+                    newCursor.getInt(Constant.COLUMN_MOVIE_ID),
+                    newCursor.getInt(Constant.COLUMN_MOVIE_VOTECOUNT),
+                    Boolean.getBoolean(newCursor.getString(Constant.COLUMN_MOVIE_VIDEO)),
+                    newCursor.getDouble(Constant.COLUMN_MOVIE_VOTEAVERAGE),
+                    newCursor.getString(Constant.COLUMN_MOVIE_TITLE),
+                    newCursor.getDouble(Constant.COLUMN_MOVIE_POPULARITY),
+                    newCursor.getString(Constant.COLUMN_MOVIE_POSTERPATH),
+                    newCursor.getString(Constant.COLUMN_MOVIE_ORIGINALLANGUAGE),
+                    newCursor.getString(Constant.COLUMN_MOVIE_ORIGINALTITLE),
+                    null,
+                    newCursor.getString(Constant.COLUMN_MOVIE_BACKDROPPATH),
+                    Boolean.getBoolean(newCursor.getString(Constant.COLUMN_MOVIE_ADULT)),
+                    newCursor.getString(Constant.COLUMN_MOVIE_OVERVIEW),
+                    newCursor.getString(Constant.COLUMN_MOVIE_RELEASEDATE));
 
-                movies.add(movieResult);
-            }
-
-            mView.hideProgress();
-            mView.showMovielist(movies);
+            movies.add(movieResult);
         }
+
+        mView.hideProgress();
+        mView.showMovielist(movies);
     }
 
     private void getMoviePopular() {
@@ -77,36 +77,36 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
         mView.showMessageLayout(false);
         mView.showProgress();
         mDataManager.getPopularMovies(new RemoteCallback<Movies>() {
-             @Override
-             public void onSuccess(Movies response) {
-                 mView.hideProgress();
-                 if (!isViewAttached()) return;
+            @Override
+            public void onSuccess(Movies response) {
+                mView.hideProgress();
+                if (!isViewAttached()) return;
 
-                 List<MovieResult> responseResults = response.results;
-                 if (responseResults.isEmpty()) {
-                     mView.showEmpty();
-                     return;
-                 }
+                List<MovieResult> responseResults = response.results;
+                if (responseResults.isEmpty()) {
+                    mView.showEmpty();
+                    return;
+                }
 
-                 mView.showMovielist(responseResults);
-             }
+                mView.showMovielist(responseResults);
+            }
 
-             @Override
-             public void onUnauthorized() {
-                 if (!isViewAttached()) return;
-                 mView.hideProgress();
-                 mView.showUnauthorizedError();
+            @Override
+            public void onUnauthorized() {
+                if (!isViewAttached()) return;
+                mView.hideProgress();
+                mView.showUnauthorizedError();
 
-             }
+            }
 
-             @Override
-             public void onFailed(Throwable throwable) {
-                 if (!isViewAttached()) return;
-                 mView.hideProgress();
-                 mView.showError(throwable.getMessage());
+            @Override
+            public void onFailed(Throwable throwable) {
+                if (!isViewAttached()) return;
+                mView.hideProgress();
+                mView.showError(throwable.getMessage());
 
-             }
-         });
+            }
+        });
     }
 
     private void getMovieToprated() {
@@ -114,32 +114,32 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
         mView.showMessageLayout(false);
         mView.showProgress();
         mDataManager.getTopratedMovies(new RemoteCallback<Movies>() {
-             @Override
-             public void onSuccess(Movies response) {
-                 mView.hideProgress();
-                 if (!isViewAttached()) return;
-                 List<MovieResult> responseResults = response.results;
-                 if (responseResults.isEmpty()) {
-                     mView.showEmpty();
-                     return;
-                 }
+            @Override
+            public void onSuccess(Movies response) {
+                mView.hideProgress();
+                if (!isViewAttached()) return;
+                List<MovieResult> responseResults = response.results;
+                if (responseResults.isEmpty()) {
+                    mView.showEmpty();
+                    return;
+                }
 
-                 mView.showMovielist(responseResults);
-             }
+                mView.showMovielist(responseResults);
+            }
 
-             @Override
-             public void onUnauthorized() {
-                 if (!isViewAttached()) return;
-                 mView.hideProgress();
-                 mView.showUnauthorizedError();
-             }
+            @Override
+            public void onUnauthorized() {
+                if (!isViewAttached()) return;
+                mView.hideProgress();
+                mView.showUnauthorizedError();
+            }
 
-             @Override
-             public void onFailed(Throwable throwable) {
-                 if (!isViewAttached()) return;
-                 mView.hideProgress();
-                 mView.showError(throwable.getMessage());
-             }
-         });
+            @Override
+            public void onFailed(Throwable throwable) {
+                if (!isViewAttached()) return;
+                mView.hideProgress();
+                mView.showError(throwable.getMessage());
+            }
+        });
     }
 }

@@ -141,44 +141,6 @@ public class MovieHomeListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     /**
-     * Swaps the Cursor currently held in the adapter with a new one
-     * and triggers a UI refresh
-     *
-     * @param newCursor the new cursor that will replace the existing one
-     */
-    public void swapCursor(Cursor newCursor) {
-        if (newCursor == null){
-            return;
-        }
-        List<MovieResult> movies = new ArrayList<>();
-
-        if (newCursor.moveToFirst()) {
-            while(newCursor.moveToNext()) {
-                MovieResult movieResult = new MovieResult (
-                        newCursor.getInt(Constant.COLUMN_MOVIE_ID),
-                        newCursor.getInt(Constant.COLUMN_MOVIE_VOTECOUNT),
-                        Boolean.getBoolean(newCursor.getString(Constant.COLUMN_MOVIE_VIDEO)),
-                        newCursor.getDouble(Constant.COLUMN_MOVIE_VOTEAVERAGE),
-                        newCursor.getString(Constant.COLUMN_MOVIE_TITLE),
-                        newCursor.getDouble(Constant.COLUMN_MOVIE_POPULARITY),
-                        newCursor.getString(Constant.COLUMN_MOVIE_POSTERPATH),
-                        newCursor.getString(Constant.COLUMN_MOVIE_ORIGINALLANGUAGE),
-                        newCursor.getString(Constant.COLUMN_MOVIE_ORIGINALTITLE),
-                        null,
-                        newCursor.getString(Constant.COLUMN_MOVIE_BACKDROPPATH),
-                        Boolean.getBoolean(newCursor.getString(Constant.COLUMN_MOVIE_ADULT)),
-                        newCursor.getString(Constant.COLUMN_MOVIE_OVERVIEW),
-                        newCursor.getString(Constant.COLUMN_MOVIE_RELEASEDATE));
-
-                movies.add(movieResult);
-            }
-
-            addItems(movies);
-        }
-
-    }
-
-    /**
      * ViewHolders
      */
     public class ProgressBarViewHolder extends RecyclerView.ViewHolder {
