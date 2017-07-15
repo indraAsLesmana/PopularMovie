@@ -12,6 +12,7 @@ import id.co.blogspot.tutor93.popularmovie.data.model.Movies;
 import id.co.blogspot.tutor93.popularmovie.data.model.MovieResult;
 import id.co.blogspot.tutor93.popularmovie.data.network.RemoteCallback;
 import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
+import id.co.blogspot.tutor93.popularmovie.utility.Constant;
 
 /**
  * Created by indraaguslesmana on 6/14/17.
@@ -45,37 +46,23 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
 
         List<MovieResult> movies = new ArrayList<>();
 
-        int positionMovieId = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_ID);
-        int positionVoteCount = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_VOTECOUNT);
-        int positionVideo = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_VIDEO);
-        int positionVoteAverage = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_VOTEAVERAGE);
-        int positionTitle = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_TITLE);
-        int positionPopularity = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_POPULARITY);
-        int positionPosterpath = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_POSTERPATH);
-        int positionOriginalLanguage = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_ORIGINALLANGUAGE);
-        int positionOriginalTitle = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_ORIGINALTITLE);
-        int positionBackdroppath = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_BACKDROPPATH);
-        int positionAdult = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_ADULT);
-        int positionOverview = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_OVERVIEW);
-        int positionReleaseDate = newCursor.getColumnIndex(MovieEntry.COLUMN_MOVIE_RELEASEDATE);
-
         if (newCursor.moveToFirst()) {
             while(newCursor.moveToNext()) {
                 MovieResult movieResult = new MovieResult (
-                        newCursor.getInt(positionMovieId),
-                        newCursor.getInt(positionVoteCount),
-                        Boolean.getBoolean(newCursor.getString(positionVideo)),
-                        newCursor.getDouble(positionVoteAverage),
-                        newCursor.getString(positionTitle),
-                        newCursor.getDouble(positionPopularity),
-                        newCursor.getString(positionPosterpath),
-                        newCursor.getString(positionOriginalLanguage),
-                        newCursor.getString(positionOriginalTitle),
+                        newCursor.getInt(Constant.COLUMN_MOVIE_ID),
+                        newCursor.getInt(Constant.COLUMN_MOVIE_VOTECOUNT),
+                        Boolean.getBoolean(newCursor.getString(Constant.COLUMN_MOVIE_VIDEO)),
+                        newCursor.getDouble(Constant.COLUMN_MOVIE_VOTEAVERAGE),
+                        newCursor.getString(Constant.COLUMN_MOVIE_TITLE),
+                        newCursor.getDouble(Constant.COLUMN_MOVIE_POPULARITY),
+                        newCursor.getString(Constant.COLUMN_MOVIE_POSTERPATH),
+                        newCursor.getString(Constant.COLUMN_MOVIE_ORIGINALLANGUAGE),
+                        newCursor.getString(Constant.COLUMN_MOVIE_ORIGINALTITLE),
                         null,
-                        newCursor.getString(positionBackdroppath),
-                        Boolean.getBoolean(newCursor.getString(positionAdult)),
-                        newCursor.getString(positionOverview),
-                        newCursor.getString(positionReleaseDate));
+                        newCursor.getString(Constant.COLUMN_MOVIE_BACKDROPPATH),
+                        Boolean.getBoolean(newCursor.getString(Constant.COLUMN_MOVIE_ADULT)),
+                        newCursor.getString(Constant.COLUMN_MOVIE_OVERVIEW),
+                        newCursor.getString(Constant.COLUMN_MOVIE_RELEASEDATE));
 
                 movies.add(movieResult);
             }

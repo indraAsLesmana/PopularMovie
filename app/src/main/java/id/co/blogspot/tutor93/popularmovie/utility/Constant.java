@@ -1,5 +1,6 @@
 package id.co.blogspot.tutor93.popularmovie.utility;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
@@ -60,4 +61,36 @@ public class Constant {
             MovieEntry.COLUMN_MOVIE_OVERVIEW,
             MovieEntry.COLUMN_MOVIE_RELEASEDATE
     };
+
+    public static final int COLUMN_MOVIE_ID = 1;
+    public static final int COLUMN_MOVIE_VOTECOUNT = 2;
+    public static final int COLUMN_MOVIE_VIDEO = 3;
+    public static final int COLUMN_MOVIE_VOTEAVERAGE = 4;
+    public static final int COLUMN_MOVIE_TITLE = 5;
+    public static final int COLUMN_MOVIE_POPULARITY = 6;
+    public static final int COLUMN_MOVIE_POSTERPATH = 7;
+    public static final int COLUMN_MOVIE_ORIGINALLANGUAGE = 8;
+    public static final int COLUMN_MOVIE_ORIGINALTITLE = 9;
+    public static final int COLUMN_MOVIE_BACKDROPPATH = 10;
+    public static final int COLUMN_MOVIE_ADULT = 11;
+    public static final int COLUMN_MOVIE_OVERVIEW = 12;
+    public static final int COLUMN_MOVIE_RELEASEDATE = 13;
+
+    @Retention(SOURCE)
+    @IntDef({
+            COLUMN_MOVIE_ID,
+            COLUMN_MOVIE_VOTECOUNT,
+            COLUMN_MOVIE_VIDEO,
+            COLUMN_MOVIE_VOTEAVERAGE,
+            COLUMN_MOVIE_TITLE,
+            COLUMN_MOVIE_POPULARITY,
+            COLUMN_MOVIE_POSTERPATH,
+            COLUMN_MOVIE_ORIGINALLANGUAGE,
+            COLUMN_MOVIE_ORIGINALTITLE,
+            COLUMN_MOVIE_BACKDROPPATH,
+            COLUMN_MOVIE_ADULT,
+            COLUMN_MOVIE_OVERVIEW,
+            COLUMN_MOVIE_RELEASEDATE
+    })
+    public @interface ColumnIndex {}
 }

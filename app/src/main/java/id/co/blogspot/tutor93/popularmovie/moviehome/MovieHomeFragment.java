@@ -23,7 +23,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import id.co.blogspot.tutor93.popularmovie.PopularMovie;
@@ -171,7 +170,6 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
                 null,
                 null
         );
-
         mMovieHomeListAdapter.removeAll();
         mMovieHomePresenter.onFavoriteRequested(mData);
     }
