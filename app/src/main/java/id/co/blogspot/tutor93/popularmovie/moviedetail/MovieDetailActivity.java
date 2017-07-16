@@ -224,8 +224,10 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     private void saveFavorite() {
-        if (isExists(String.valueOf(mMovieresult.id))) {
-            Toast.makeText(this, "you have already saved as favorite", Toast.LENGTH_SHORT).show();
+        if (isMovieFavorite(String.valueOf(mMovieresult.id))) {
+            if (unFavoriteMovie(mMovieresult.id)) {
+                Toast.makeText(this, "remove favorite", Toast.LENGTH_SHORT).show();
+            }
             return;
         }
 
@@ -249,8 +251,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
                 mMovieresult.originalLanguage);
         movieDetail.put(MovieEntry.COLUMN_MOVIE_ORIGINALTITLE,
                 mMovieresult.originalTitle);
-        /*movieDetail.put(MovieEntry.COLUMN_MOVIE_GENREIDS,
-                mMovieresult.genreIds);*/
         movieDetail.put(MovieEntry.COLUMN_MOVIE_BACKDROPPATH,
                 mMovieresult.backdropPath);
         movieDetail.put(MovieEntry.COLUMN_MOVIE_ADULT,
@@ -268,7 +268,21 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         }
     }
 
-    public boolean isExists(String movieId) {
+    // COMPLETED (1) Create a new function called unfavoiteMovie that takes long id as input and returns a boolean
+    /**
+     * Removes the record with the specified id
+     *
+     * @param id the DB id to be removed
+     * @return True: if removed successfully, False: if failed
+     */
+    private boolean unFavoriteMovie(int id) {
+        // COMPLETED (2) Inside, call mDb.delete to pass in the TABLE_NAME and the condition that WaitlistEntry._ID equals id
+        return PopularMovie.getmDb().delete(
+                MovieEntry.TABLE_NAME,
+                MovieEntry.COLUMN_MOVIE_ID + "=" + id, null) > 0;
+    }
+
+    public boolean isMovieFavorite(String movieId) {
         Cursor cursor =
                 PopularMovie.getmDb()
                         .rawQuery("SELECT * FROM "
