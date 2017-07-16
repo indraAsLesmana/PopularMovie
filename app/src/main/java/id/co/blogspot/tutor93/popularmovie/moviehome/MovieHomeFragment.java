@@ -14,6 +14,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,6 +147,15 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
                 PrefenceUtils.setSaveUserConfig(mActivity, getString(R.string.sort_favorite));
                 onFavoriteClick();
                 break;
+            case android.R.id.home:
+                if (mActivity.getSupportActionBar() != null && mActivity.getSupportActionBar().getTitle()
+                        .equals(mActivity.getResources().getString(R.string.title_favorite_list))) {
+                    onRefresh();
+                    setToolbarHome();
+                }
+                break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -187,6 +198,15 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
             mActivity.getSupportActionBar().setTitle(R.string.title_favorite_list);
             mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             // TODO : its must check if title is "Favorite List" do onRefresh (Like back to Home activity).
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mActivity.getSupportActionBar() != null && mActivity.getSupportActionBar().getTitle()
+                .equals(mActivity.getResources().getString(R.string.title_favorite_list))) {
+            onFavoriteClick();
         }
     }
 

@@ -3,18 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground">
 
-    <include layout="@layout/item_line"/>
+    <include layout="@layout/item_line" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/reviews_item_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:paddingRight="@dimen/margin_b"
-        android:paddingLeft="@dimen/margin_c"
         android:paddingBottom="@dimen/margin_b"
+        android:paddingLeft="@dimen/margin_c"
+        android:paddingRight="@dimen/margin_b"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         tools:text="Frank Ochieng" />
 
     <android.support.v7.widget.AppCompatTextView
@@ -24,10 +26,11 @@
         android:layout_gravity="start"
         android:ellipsize="end"
         android:fontFamily="sans-serif-light"
+        android:lineSpacingMultiplier="1.1"
         android:maxLines="4"
-        android:paddingRight="@dimen/margin_b"
-        android:paddingLeft="@dimen/margin_c"
         android:paddingBottom="@dimen/margin_b"
+        android:paddingLeft="@dimen/margin_c"
+        android:paddingRight="@dimen/margin_b"
         tools:text="@string/dummy_text" />
 
 </LinearLayout>

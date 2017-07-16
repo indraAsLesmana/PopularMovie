@@ -20,9 +20,11 @@ import id.co.blogspot.tutor93.popularmovie.data.model.ReviewResult;
 public class MovieDetailReviewAdapter extends RecyclerView.Adapter<MovieDetailReviewAdapter.ReviewDetailHolder> {
 
     private List<ReviewResult> mReviewResults;
+    MovieReviewListListener movieReviewListListener;
 
     public MovieDetailReviewAdapter() {
         mReviewResults = new ArrayList<>();
+        movieReviewListListener = null;
     }
 
     @Override
@@ -51,6 +53,16 @@ public class MovieDetailReviewAdapter extends RecyclerView.Adapter<MovieDetailRe
             listitem = itemView;
             mAuthor = (AppCompatTextView) itemView.findViewById(R.id.reviews_item_author);
             mContent = (AppCompatTextView) itemView.findViewById(R.id.reviews_item_content);
+            listitem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (movieReviewListListener != null) {
+                        movieReviewListListener.onMovieReviewListClick(
+                                mContent,
+                                getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 
@@ -62,5 +74,16 @@ public class MovieDetailReviewAdapter extends RecyclerView.Adapter<MovieDetailRe
     public void addItems(List<ReviewResult> reviewResults) {
         mReviewResults.addAll(reviewResults);
         notifyItemRangeInserted(getItemCount(), mReviewResults.size() - 1);
+    }
+
+    /**
+     * Handling user click image
+     */
+    public interface MovieReviewListListener {
+        void onMovieReviewListClick(TextView mMovieContent, int adapterPosition);
+    }
+
+    public void setMovieReviewListListener(MovieReviewListListener movieListListener) {
+        movieReviewListListener = movieListListener;
     }
 }

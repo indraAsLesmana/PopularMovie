@@ -27,7 +27,5 @@ public interface MovieDetailContract {
         void showVideos(List<VideoResult> videoResults);
 
         void showVideoTrailer(String movieUrl);
-
-        void showReviewItemFull();
     }
 }

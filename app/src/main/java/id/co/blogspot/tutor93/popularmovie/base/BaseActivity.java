@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import id.co.blogspot.tutor93.popularmovie.R;
 
 /**
  * Created by indraaguslesmana on 6/14/17.
@@ -20,8 +23,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
-                return true;
+                if (getSupportActionBar().getTitle().equals(getResources().getString(R.string.title_favorite_list))) {
+                    return super.onOptionsItemSelected(item);
+                }else {
+                    onBackPressed();
+                }
+                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }

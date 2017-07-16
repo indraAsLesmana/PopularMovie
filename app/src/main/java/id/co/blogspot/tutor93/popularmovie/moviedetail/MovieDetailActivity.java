@@ -37,7 +37,7 @@ import id.co.blogspot.tutor93.popularmovie.videoplayer.VideoPlayerYoutube;
 import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
 
 public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.HomeClickView,
-        MovieDetailVideoAdapter.VideoListListener, View.OnClickListener{
+        MovieDetailVideoAdapter.VideoListListener, View.OnClickListener, MovieDetailReviewAdapter.MovieReviewListListener{
 
     private static final String TAG = "MovieDetailActivity";
     private static final String EXTRA_DETAIL_MOVIE = "movieDetail";
@@ -126,6 +126,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     private void setListener() {
         mMovieDetailVideoAdapter.setVideoListListener(this);
+        mMovieDetailReviewAdapter.setMovieReviewListListener(this);
         makeFavoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,11 +178,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     @Override
     public void showVideoTrailer(String movieUrl) {
         startActivity(VideoPlayerYoutube.newStartIntent(this, movieUrl));
-    }
-
-    @Override
-    public void showReviewItemFull() {
-
     }
 
     @Override
@@ -269,15 +265,8 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         }
     }
 
-    // COMPLETED (1) Create a new function called unfavoiteMovie that takes long id as input and returns a boolean
-    /**
-     * Removes the record with the specified id
-     *
-     * @param id the DB id to be removed
-     * @return True: if removed successfully, False: if failed
-     */
+
     private boolean unFavoriteMovie(int id) {
-        // COMPLETED (2) Inside, call mDb.delete to pass in the TABLE_NAME and the condition that WaitlistEntry._ID equals id
         return PopularMovie.getmDb().delete(
                 MovieEntry.TABLE_NAME,
                 MovieEntry.COLUMN_MOVIE_ID + "=" + id, null) > 0;
@@ -296,5 +285,14 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         boolean exists = (cursor.getCount() > 0);
         cursor.close();
         return exists;
+    }
+
+    @Override
+    public void onMovieReviewListClick(TextView mMovieContent, int adapterPosition) {
+        if (mMovieContent.getMaxLines() == 4) {
+            mMovieContent.setMaxLines(500);
+        } else {
+            mMovieContent.setMaxLines(4);
+        }
     }
 }
