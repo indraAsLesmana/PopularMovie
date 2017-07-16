@@ -36,5 +36,7 @@
     <string name="action_delete">Delete</string>
     <string name="action_save">Save</string>
 
+    <string name="title_favorite_list">Favorite List</string>
+
 
 </resources>

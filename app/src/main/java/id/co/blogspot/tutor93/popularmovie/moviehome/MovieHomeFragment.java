@@ -177,9 +177,11 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
     }
 
     private void setToolbarFavorite() {
-        mActivity.getSupportActionBar().setTitle("Favorite List");
-        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // TODO : its must check if title "favorite list" its must refresh layout as (Home activity).
+        if (mActivity.getSupportActionBar() != null) {
+            mActivity.getSupportActionBar().setTitle(R.string.title_favorite_list);
+            mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            // TODO : its must check if title is "Favorite List" do onRefresh (Like back to Home activity).
+        }
     }
 
     @Override
