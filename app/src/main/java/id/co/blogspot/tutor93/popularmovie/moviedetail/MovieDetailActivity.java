@@ -224,7 +224,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     private void saveFavorite() {
-        if (isExists(String.valueOf(mMovieresult.id))) {
+        if (isFavoriteMovie(String.valueOf(mMovieresult.id))) {
             if (unFavoriteMovie(mMovieresult.id)) {
                 Toast.makeText(this, "remove favorite", Toast.LENGTH_SHORT).show();
             }
@@ -277,7 +277,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
                 MovieEntry.COLUMN_MOVIE_ID + "=" + id, null) > 0;
     }
 
-    public boolean isExists(String movieId) {
+    public boolean isFavoriteMovie(String movieId) {
         Cursor cursor =
                 PopularMovie.getmDb()
                         .rawQuery("SELECT * FROM "
