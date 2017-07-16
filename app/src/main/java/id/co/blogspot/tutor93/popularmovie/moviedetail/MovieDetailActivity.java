@@ -225,7 +225,9 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     private void saveFavorite() {
         if (isExists(String.valueOf(mMovieresult.id))) {
-            Toast.makeText(this, "you have already saved as favorite", Toast.LENGTH_SHORT).show();
+            if (unFavoriteMovie(mMovieresult.id)) {
+                Toast.makeText(this, "remove favorite", Toast.LENGTH_SHORT).show();
+            }
             return;
         }
 
@@ -266,6 +268,13 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         if (uriResult != null){
             Log.i(TAG, uriResult.toString());
         }
+    }
+
+    private boolean unFavoriteMovie(int id) {
+        // COMPLETED (2) Inside, call mDb.delete to pass in the TABLE_NAME and the condition that WaitlistEntry._ID equals id
+        return PopularMovie.getmDb().delete(
+                MovieEntry.TABLE_NAME,
+                MovieEntry.COLUMN_MOVIE_ID + "=" + id, null) > 0;
     }
 
     public boolean isExists(String movieId) {
