@@ -23,14 +23,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (getSupportActionBar().getTitle().equals(getResources().getString(R.string.title_favorite_list))) {
-                    return super.onOptionsItemSelected(item);
-                }else {
+                if (!isFavoriteList()) {
                     onBackPressed();
+                } else {
+                    return super.onOptionsItemSelected(item);
                 }
-                return false;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean isFavoriteList(){
+        return getSupportActionBar().getTitle().equals(getResources().getString(R.string.title_favorite_list));
     }
 }
