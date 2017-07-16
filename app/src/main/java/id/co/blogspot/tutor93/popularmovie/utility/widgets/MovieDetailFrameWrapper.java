@@ -33,10 +33,16 @@ public class MovieDetailFrameWrapper extends LinearLayout{
     @BindView(R.id.moviedetail_voteaverage) AppCompatTextView mVoteAverage;
     @BindView(R.id.moviedetail_description) AppCompatTextView mDescription;
     @BindView(R.id.moviedetail_imagemovie) AppCompatImageView mImagePoster;
+    @BindView(R.id.moviedetail_rateimage) AppCompatImageView mImageRate;
+    @BindView(R.id.moviedetail_title) AppCompatTextView mMovieTitle;
 
     public MovieDetailFrameWrapper(Context context, MovieResult movieResult) {
         super(context);
         init(context);
+
+        if (!TextUtils.isEmpty(movieResult.title)){
+            mMovieTitle.setText(movieResult.title);
+        }
 
         if (!TextUtils.isEmpty(movieResult.releaseDate)){
             mReleaseDate.setText(parseDate(movieResult.releaseDate));
@@ -44,7 +50,9 @@ public class MovieDetailFrameWrapper extends LinearLayout{
 
         if (movieResult.voteAverage != null){
             mVoteAverage.setText(String.valueOf(movieResult.voteAverage));
+            mImageRate.setImageResource(setImageRate(movieResult.voteAverage));
         }
+
         if (!TextUtils.isEmpty(movieResult.overview)){
             mDescription.setText(movieResult.overview);
         }
@@ -74,5 +82,23 @@ public class MovieDetailFrameWrapper extends LinearLayout{
 
         SimpleDateFormat finalDateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
         return finalDateFormat.format(sourceDate);
+    }
+
+    private int setImageRate(double rate){
+        int img = 0;
+        if (rate <= 4.0){
+            img = R.drawable.ic_rating_one;
+        }else if (rate >= 4.0 && rate <= 5.0){
+            img = R.drawable.ic_rating_two;
+        }else if (rate >= 5.0 && rate <= 7.5){
+            img = R.drawable.ic_rating_three;
+        }else if (rate >= 7.5 && rate <= 8.5){
+            img = R.drawable.ic_rating_four;
+        }else if (rate >= 8.5 && rate <= 10.0){
+            img = R.drawable.ic_rating_five;
+        }else {
+            img = R.drawable.ic_rating_one;
+        }
+        return img;
     }
 }

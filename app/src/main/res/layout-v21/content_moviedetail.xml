@@ -15,10 +15,9 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/moviedetail_imagemovie"
-            android:layout_width="0dp"
+            android:layout_width="168dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:transitionName="@string/transaction_poster"
             app:srcCompat="@drawable/ic_loading" />
 
@@ -35,9 +34,19 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:layout_marginTop="32dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/moviedetail_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="Planet Of The Apes: Phenom Magnes dead"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:layout_marginBottom="@dimen/margin_a"
+                        android:textSize="@dimen/font_c" />
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/appCompatTextView"
@@ -87,41 +96,19 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/moviedetail_playtrailer"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/height_aa"
-                    android:layout_weight="1"
-                    android:padding="@dimen/margin_a"
-                    app:srcCompat="@drawable/ic_trailer" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="2"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/trailer"
-                    android:textSize="@dimen/font_e" />
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/moviedetail_description"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_aa"
-        android:ellipsize="end"
+        android:layout_height="wrap_content"
+        android:requiresFadingEdge="horizontal"
+        android:fadingEdgeLength="40dp"
+        android:ellipsize="none"
         android:maxLines="3"
         android:text="@string/dummy_text"
-        android:textAlignment="center" />
+        android:textAlignment="viewStart" />
 
 </LinearLayout>
