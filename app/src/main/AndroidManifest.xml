@@ -29,6 +29,11 @@
             android:name=".videoplayer.VideoPlayerYoutube"
             android:theme="@style/Theme.customDialog" />
 
+        <provider
+            android:name=".data.local.MovieProvider"
+            android:authorities="id.co.blogspot.tutor93.popularmovie"
+            android:exported="false" />
+
     </application>
 
 </manifest>
