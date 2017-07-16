@@ -70,6 +70,7 @@ public class MovieHomePresenter extends BasePresenter<MovieHomeContract.Movielis
 
         mView.hideProgress();
         mView.showMovielist(movies);
+        newCursor.close();
     }
 
     private void getMoviePopular() {

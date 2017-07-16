@@ -157,6 +157,8 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         mMovieHomeListAdapter.removeAll();
         mMovieHomePresenter.onInitialListRequested(
                 PrefenceUtils.getSinglePrefrenceString(mActivity, R.string.def_sortby_key));
+
+        setToolbarHome();
     }
 
     private void onFavoriteClick(){
@@ -172,8 +174,16 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         );
         mMovieHomeListAdapter.removeAll();
         mMovieHomePresenter.onFavoriteRequested(mData);
-
+        mData.close();
         setToolbarFavorite();
+    }
+
+    private void setToolbarHome() {
+        if (mActivity.getSupportActionBar() != null) {
+            mActivity.getSupportActionBar().setTitle(R.string.app_name);
+            mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            // TODO : its must check if title is "Favorite List" do onRefresh (Like back to Home activity).
+        }
     }
 
     private void setToolbarFavorite() {

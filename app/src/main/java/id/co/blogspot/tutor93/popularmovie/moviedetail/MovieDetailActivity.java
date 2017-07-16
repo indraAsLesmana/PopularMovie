@@ -3,6 +3,7 @@ package id.co.blogspot.tutor93.popularmovie.moviedetail;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,11 +16,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import id.co.blogspot.tutor93.popularmovie.PopularMovie;
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.base.BaseActivity;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
@@ -221,6 +224,11 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     private void saveFavorite() {
+        if (isExists(String.valueOf(mMovieresult.id))) {
+            Toast.makeText(this, "you have already saved as favorite", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         ContentValues movieDetail = new ContentValues();
 
         movieDetail.put(MovieEntry.COLUMN_MOVIE_ID,
@@ -258,5 +266,20 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         if (uriResult != null){
             Log.i(TAG, uriResult.toString());
         }
+    }
+
+    public boolean isExists(String movieId) {
+        Cursor cursor =
+                PopularMovie.getmDb()
+                        .rawQuery("SELECT * FROM "
+                                        + MovieEntry.TABLE_NAME
+                                        + " WHERE "
+                                        + MovieEntry.COLUMN_MOVIE_ID
+                                        + " =?",
+
+                new String[] { movieId });
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
     }
 }
