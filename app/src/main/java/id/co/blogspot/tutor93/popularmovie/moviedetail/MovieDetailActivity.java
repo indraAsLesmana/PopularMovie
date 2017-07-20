@@ -61,8 +61,10 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+        if (savedInstanceState != null) mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
 
-        isSavedInstanceEvaluabe(savedInstanceState);
+
+        mMovieresult = getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE);
         initReviewAndVideos();
         initView();
 
@@ -81,14 +83,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
                     .centerCrop()
                     .crossFade()
                     .into(appBarImage);
-        }
-    }
-
-    private void isSavedInstanceEvaluabe(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
-        }else {
-            mMovieresult = getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE);
         }
     }
 
