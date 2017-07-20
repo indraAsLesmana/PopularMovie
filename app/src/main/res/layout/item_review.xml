@@ -26,7 +26,7 @@
         android:layout_gravity="start"
         android:ellipsize="end"
         android:fontFamily="sans-serif-light"
-        android:lineSpacingMultiplier="1.1"
+        android:lineSpacingMultiplier="1.2"
         android:maxLines="4"
         android:paddingBottom="@dimen/margin_b"
         android:paddingLeft="@dimen/margin_c"
