@@ -27,43 +27,36 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_a"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/margin_c"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_marginTop="32dp"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/moviedetail_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="@dimen/margin_a"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textSize="@dimen/font_c"
+                    tools:text="Planet Of The Apes: Phenom Magnes dead" />
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/moviedetail_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:text="Planet Of The Apes: Phenom Magnes dead"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:layout_marginBottom="@dimen/margin_a"
-                        android:textSize="@dimen/font_c" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/detail_release_date" />
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/appCompatTextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="@string/detail_release_date" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/moviedetail_tvReleasedate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    tools:text="16/08/1993" />
+            </LinearLayout>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/moviedetail_tvReleasedate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        tools:text="16/08/1993" />
-                </LinearLayout>
-
-            </RelativeLayout>
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -104,10 +97,11 @@
         android:id="@+id/moviedetail_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:requiresFadingEdge="horizontal"
-        android:fadingEdgeLength="40dp"
+        android:layout_gravity="start"
         android:ellipsize="none"
+        android:fadingEdgeLength="40dp"
         android:maxLines="3"
+        android:requiresFadingEdge="horizontal"
         android:text="@string/dummy_text"
         android:textAlignment="viewStart" />
 
