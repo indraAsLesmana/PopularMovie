@@ -5,4 +5,7 @@
     <color name="colorAccent">#484848</color>
 
     <color name="dialog_transparent_black">#F2000000</color>
+
+    <color name="splash_share_button_normal">#8f171a</color>
+    <color name="splash_share_button_pressed">#7b1316</color>
 </resources>

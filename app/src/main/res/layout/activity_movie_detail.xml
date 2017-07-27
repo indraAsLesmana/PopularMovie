@@ -56,14 +56,34 @@
                 android:paddingRight="@dimen/margin_a"
                 android:paddingTop="@dimen/margin_a" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:layout_gravity="start"
-                android:fontFamily="sans-serif-medium"
-                android:padding="@dimen/margin_b"
-                android:text="@string/trailer" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:padding="@dimen/margin_b"
+                    android:text="@string/trailer"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/moviedetail_sharebtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_c"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="@dimen/margin_b"
+                    android:background="@drawable/selector_button"
+                    android:text="@string/share"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/font_b" />
+            </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/moviedetail_list_videos"

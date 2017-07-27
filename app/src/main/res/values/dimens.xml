@@ -37,5 +37,6 @@
 
     <dimen name="font_dd">22sp</dimen>
 
+    <dimen name="login_main_button_corner_round_size">25dp</dimen>
 
 </resources>
