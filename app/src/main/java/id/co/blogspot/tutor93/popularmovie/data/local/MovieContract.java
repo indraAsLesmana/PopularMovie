@@ -38,7 +38,6 @@ public final class MovieContract {
         public static final String COLUMN_MOVIE_POSTERPATH = "posterPath";
         public static final String COLUMN_MOVIE_ORIGINALLANGUAGE = "originalLanguage";
         public static final String COLUMN_MOVIE_ORIGINALTITLE = "originalTitle";
-//        public static final String COLUMN_MOVIE_GENREIDS = "genreIds";
         public static final String COLUMN_MOVIE_BACKDROPPATH = "backdropPath";
         public static final String COLUMN_MOVIE_ADULT = "adult";
         public static final String COLUMN_MOVIE_OVERVIEW = "overview";

@@ -183,6 +183,7 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         mMovieHomePresenter.onFavoriteRequested(mData);
         mData.close();
         setToolbarFavorite();
+        showMessageLayout(Boolean.FALSE);
     }
 
     private void setToolbarHome() {

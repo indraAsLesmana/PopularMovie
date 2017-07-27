@@ -150,7 +150,7 @@ public class MovieProvider extends ContentProvider {
         /** make toast for every new insert row, if success*/
         Uri uriResult = ContentUris.withAppendedId(uri, id);
         if (id != -1) {
-            Toast.makeText(getContext(), "Insert Success at: \n" +
+            Toast.makeText(getContext(), "Movie saved \n" +
                     uriResult.toString(), Toast.LENGTH_SHORT).show();
 
             //notify if change has been made
@@ -175,7 +175,6 @@ public class MovieProvider extends ContentProvider {
                 values.getAsString(MovieEntry.COLUMN_MOVIE_POSTERPATH).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_ORIGINALLANGUAGE).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_ORIGINALTITLE).isEmpty() ||
-//                values.getAsString(MovieEntry.COLUMN_MOVIE_GENREIDS).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_BACKDROPPATH).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_ADULT).isEmpty() ||
                 values.getAsString(MovieEntry.COLUMN_MOVIE_OVERVIEW).isEmpty() ||
