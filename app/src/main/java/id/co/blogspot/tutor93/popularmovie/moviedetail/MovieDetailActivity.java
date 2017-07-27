@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private MovieDetailVideoAdapter mMovieDetailVideoAdapter;
     private ImageView appBarImage;
     private FloatingActionButton makeFavoriteBtn;
+    private Button shareBtn;
 
     private Uri uriResult;
 
@@ -103,6 +105,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
         appBarImage = (ImageView) findViewById(R.id.app_bar_image);
         makeFavoriteBtn = (FloatingActionButton) findViewById(R.id.moviedetail_makefavorite_fab);
+        shareBtn = (Button) findViewById(R.id.moviedetail_sharebtn);
 
         initMovieDetail();
         initReviewList();
@@ -121,6 +124,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private void setListener() {
         mMovieDetailVideoAdapter.setVideoListListener(this);
         mMovieDetailReviewAdapter.setMovieReviewListListener(this);
+        shareBtn.setOnClickListener(this);
         makeFavoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +200,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     @Override
     public void showError(String errorMessage) {
-
+        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -211,7 +215,17 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     @Override
     public void onClick(View v) {
-
+        if (v.getId() == R.id.moviedetail_sharebtn){
+            if (mMovieDetailVideoAdapter.shareClick() != null){
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.youtube_url, mMovieDetailVideoAdapter.shareClick()));
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }else {
+                showError(getString(R.string.error_share));
+            }
+        }
     }
 
     private void saveFavorite() {

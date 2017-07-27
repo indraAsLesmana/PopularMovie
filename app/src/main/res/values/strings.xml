@@ -17,6 +17,9 @@
 
     <!--Error message-->
     <string name="error_generic_server_error">Cannot reach the server, %1$s</string>
+    <string name="error_share">movie have no trailer to share</string>
+
+    <string name="youtube_url">http://www.youtube.com/watch?v=%1$s</string>
 
     <!--Transition targetname-->
     <string name="transaction_poster">transactionposter</string>

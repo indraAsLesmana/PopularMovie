@@ -85,6 +85,14 @@ public class MovieDetailVideoAdapter extends RecyclerView.Adapter<MovieDetailVid
         notifyItemRangeInserted(getItemCount(), mVideosResult.size() - 1);
     }
 
+    public String shareClick() {
+        String result = null;
+        if (mVideosResult.size() > 0) {
+            result = mVideosResult.get(0).key;
+        }
+        return result;
+    }
+
     /**
      * Handling user click image
      */
