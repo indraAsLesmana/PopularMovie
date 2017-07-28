@@ -38,7 +38,7 @@ import id.co.blogspot.tutor93.popularmovie.videoplayer.VideoPlayerYoutube;
 import id.co.blogspot.tutor93.popularmovie.data.local.MovieContract.MovieEntry;
 
 public class MovieDetailActivity extends BaseActivity implements MovieDetailContract.HomeClickView,
-        MovieDetailVideoAdapter.VideoListListener, View.OnClickListener, MovieDetailReviewAdapter.MovieReviewListListener{
+        MovieDetailVideoAdapter.VideoListListener, View.OnClickListener, MovieDetailReviewAdapter.MovieReviewListListener {
 
     private static final String TAG = "MovieDetailActivity";
     private static final String EXTRA_DETAIL_MOVIE = "movieDetail";
@@ -63,7 +63,8 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-        if (savedInstanceState != null) mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
+        if (savedInstanceState != null)
+            mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
 
 
         mMovieresult = getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE);
@@ -215,14 +216,14 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.moviedetail_sharebtn){
-            if (mMovieDetailVideoAdapter.shareClick() != null){
+        if (v.getId() == R.id.moviedetail_sharebtn) {
+            if (mMovieDetailVideoAdapter.shareClick() != null) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.youtube_url, mMovieDetailVideoAdapter.shareClick()));
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
-            }else {
+            } else {
                 showError(getString(R.string.error_share));
             }
         }
@@ -231,7 +232,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private void saveFavorite() {
         if (isMovieFavorite(String.valueOf(mMovieresult.id))) {
             if (unFavoriteMovie(mMovieresult.id)) {
-                Toast.makeText(this, "remove favorite", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.remove_favorite), Toast.LENGTH_SHORT).show();
             }
             return;
         }
@@ -268,31 +269,27 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         Uri uriResult = getContentResolver().insert(MovieEntry.CONTENT_URI,
                 movieDetail);
 
-        if (uriResult != null){
+        if (uriResult != null) {
             Log.i(TAG, uriResult.toString());
         }
     }
 
 
     private boolean unFavoriteMovie(int id) {
-        return PopularMovie.getmDb().delete(
-                MovieEntry.TABLE_NAME,
-                MovieEntry.COLUMN_MOVIE_ID + "=" + id, null) > 0;
+        int isSuccess = getContentResolver().delete(
+                MovieEntry.CONTENT_URI,
+                null,
+                new String[]{String.valueOf(id)});
+        return isSuccess > 0;
     }
 
     public boolean isMovieFavorite(String movieId) {
-        Cursor cursor =
-                PopularMovie.getmDb()
-                        .rawQuery("SELECT * FROM "
-                                        + MovieEntry.TABLE_NAME
-                                        + " WHERE "
-                                        + MovieEntry.COLUMN_MOVIE_ID
-                                        + " =?",
-
-                new String[] { movieId });
-        boolean exists = (cursor.getCount() > 0);
-        cursor.close();
-        return exists;
+        Cursor cursor = getContentResolver().query(
+                MovieEntry.CONTENT_URI,
+                Constant.PROJECTION_ALL_COLUMN,
+                MovieEntry.COLUMN_MOVIE_ID,
+                new String[]{movieId}, null);
+        return cursor.getCount() > 0;
     }
 
     @Override

@@ -41,6 +41,7 @@
 
     <string name="title_favorite_list">Favorite List</string>
     <string name="share">share</string>
+    <string name="remove_favorite">Remove from favorite</string>
 
 
 </resources>
