@@ -57,7 +57,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private RecyclerView mMoviesDetailReviewsRecycler;
     private RecyclerView mMoviesDetailVideosRecycler;
     private LinearLayout mContentFrame;
-    
+
     public static Intent newStartIntent(Context context, MovieResult movieDetail) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
         intent.putExtra(EXTRA_DETAIL_MOVIE, movieDetail);

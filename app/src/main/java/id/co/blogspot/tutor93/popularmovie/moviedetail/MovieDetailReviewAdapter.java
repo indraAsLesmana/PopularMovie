@@ -20,7 +20,7 @@ import id.co.blogspot.tutor93.popularmovie.data.model.ReviewResult;
 public class MovieDetailReviewAdapter extends RecyclerView.Adapter<MovieDetailReviewAdapter.ReviewDetailHolder> {
 
     private List<ReviewResult> mReviewResults;
-    MovieReviewListListener movieReviewListListener;
+    private MovieReviewListListener movieReviewListListener;
 
     public MovieDetailReviewAdapter() {
         mReviewResults = new ArrayList<>();
