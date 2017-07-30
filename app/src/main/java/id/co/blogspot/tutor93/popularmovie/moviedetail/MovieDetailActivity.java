@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +51,12 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private MovieDetailReviewAdapter mMovieDetailReviewAdapter;
     private MovieDetailVideoAdapter mMovieDetailVideoAdapter;
     private ImageView appBarImage;
+    private NestedScrollView mScrollView;
     private FloatingActionButton makeFavoriteBtn;
     private Button shareBtn;
+    private RecyclerView mMoviesDetailReviewsRecycler;
+    private RecyclerView mMoviesDetailVideosRecycler;
+    private LinearLayout mContentFrame;
 
     private Uri uriResult;
 
@@ -63,25 +70,64 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-        if (savedInstanceState != null)
-            mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
 
+        if (getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE) != null) {
+            mMovieresult = getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE);
+        }
 
-        mMovieresult = getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE);
         initReviewAndVideos();
         initView();
-
         mMovieDetailPresenter = new MovieDetailPresenter(DataManager.getInstance());
         mMovieDetailPresenter.attachView(this);
 
         loadReviewAndVideos();
         loadAppbarImage();
+        setupToolbar();
+        initMovieDetail();
+        initReviewList();
+        initVideosList();
+        setListener();
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState: IM CALL");
+        outState.putParcelable(EXTRA_DETAIL_MOVIE,
+                getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE));
+        outState.putIntArray("scrollPosition",
+                new int[]{mScrollView.getScrollX(), mScrollView.getScrollY()});
+        outState.putInt("scrollReview",
+                ((LinearLayoutManager)mMoviesDetailReviewsRecycler.getLayoutManager())
+                        .findFirstVisibleItemPosition());
+        outState.putInt("scrollVideos",
+                ((LinearLayoutManager)mMoviesDetailVideosRecycler.getLayoutManager())
+                        .findFirstVisibleItemPosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState: IM CALL");
+        mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
+        final int[] position = savedInstanceState.getIntArray("scrollPosition");
+        if (position != null) {
+            mScrollView.scrollTo(position[0], position[1]);
+        }
+        mMoviesDetailReviewsRecycler.getLayoutManager()
+                .scrollToPosition(savedInstanceState.getInt("scrollReview"));
+        mMoviesDetailVideosRecycler.getLayoutManager()
+                .scrollToPosition(savedInstanceState.getInt("scrollVideos"));
+
     }
 
     private void loadAppbarImage() {
         if (mMovieresult.posterPath != null) {
             Glide.with(this)
-                    .load(Helper.getComplateImageUrl(mMovieresult.backdropPath, Constant.POSTERSIZE_w500))
+                    .load(Helper.getComplateImageUrl(
+                            mMovieresult.backdropPath,
+                            Constant.POSTERSIZE_w500))
                     .error(R.drawable.ic_error_list)
                     .centerCrop()
                     .crossFade()
@@ -102,20 +148,23 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     private void initView() {
-        setupToolbar();
-
         appBarImage = (ImageView) findViewById(R.id.app_bar_image);
         makeFavoriteBtn = (FloatingActionButton) findViewById(R.id.moviedetail_makefavorite_fab);
         shareBtn = (Button) findViewById(R.id.moviedetail_sharebtn);
+        mScrollView = (NestedScrollView) findViewById(R.id.moviedetail_scroll);
 
-        initMovieDetail();
-        initReviewList();
-        initVideosList();
-        setListener();
+        mMoviesDetailReviewsRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
+        mMoviesDetailVideosRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_videos);
+        mMoviesDetailReviewsRecycler.setLayoutManager(
+                new LinearLayoutManager(this));
+        mMoviesDetailVideosRecycler.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        mContentFrame = (LinearLayout) findViewById(R.id.details_content_frame);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
     }
 
     private void initMovieDetail() {
-        LinearLayout mContentFrame = (LinearLayout) findViewById(R.id.details_content_frame);
         if (mMovieresult != null) {
             MovieDetailFrameWrapper mMovieDetailWrapper = new MovieDetailFrameWrapper(this, mMovieresult);
             mContentFrame.addView(mMovieDetailWrapper);
@@ -135,8 +184,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     private void initVideosList() {
-        RecyclerView mMoviesDetailVideosRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_videos);
-        mMoviesDetailVideosRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mMoviesDetailVideosRecycler.setHasFixedSize(true);
         mMoviesDetailVideosRecycler.setMotionEventSplittingEnabled(false);
         mMoviesDetailVideosRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -144,8 +191,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     private void initReviewList() {
-        RecyclerView mMoviesDetailReviewsRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
-        mMoviesDetailReviewsRecycler.setLayoutManager(new LinearLayoutManager(this));
         mMoviesDetailReviewsRecycler.setHasFixedSize(true);
         mMoviesDetailReviewsRecycler.setMotionEventSplittingEnabled(false);
         mMoviesDetailReviewsRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -153,7 +198,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     private void setupToolbar() {
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -289,7 +333,10 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
                 Constant.PROJECTION_ALL_COLUMN,
                 MovieEntry.COLUMN_MOVIE_ID,
                 new String[]{movieId}, null);
-        return cursor.getCount() > 0;
+        boolean isFavorite = cursor.getCount() > 0;
+        cursor.close();
+
+        return isFavorite;
     }
 
     @Override

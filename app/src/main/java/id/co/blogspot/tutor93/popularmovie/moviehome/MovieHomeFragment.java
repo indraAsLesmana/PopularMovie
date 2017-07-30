@@ -190,7 +190,6 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         if (mActivity.getSupportActionBar() != null) {
             mActivity.getSupportActionBar().setTitle(R.string.app_name);
             mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            // TODO : its must check if title is "Favorite List" do onRefresh (Like back to Home activity).
         }
     }
 
@@ -198,7 +197,6 @@ public class MovieHomeFragment extends Fragment implements MovieHomeContract.Mov
         if (mActivity.getSupportActionBar() != null) {
             mActivity.getSupportActionBar().setTitle(R.string.title_favorite_list);
             mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            // TODO : its must check if title is "Favorite List" do onRefresh (Like back to Home activity).
         }
     }
 
