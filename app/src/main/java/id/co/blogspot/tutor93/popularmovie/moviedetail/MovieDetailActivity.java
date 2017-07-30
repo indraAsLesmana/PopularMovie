@@ -284,12 +284,17 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     }
 
     public boolean isMovieFavorite(String movieId) {
+        boolean isFavorite = false;
         Cursor cursor = getContentResolver().query(
                 MovieEntry.CONTENT_URI,
                 Constant.PROJECTION_ALL_COLUMN,
                 MovieEntry.COLUMN_MOVIE_ID,
                 new String[]{movieId}, null);
-        return cursor.getCount() > 0;
+        if (cursor != null) {
+            isFavorite = cursor.getCount() > 0;
+            cursor.close();
+        }
+        return isFavorite;
     }
 
     @Override
