@@ -57,6 +57,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     private RecyclerView mMoviesDetailReviewsRecycler;
     private RecyclerView mMoviesDetailVideosRecycler;
     private LinearLayout mContentFrame;
+    private LinearLayoutManager linearLayoutManager, linearLayoutManagerHorizontal;
 
     public static Intent newStartIntent(Context context, MovieResult movieDetail) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -72,6 +73,9 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
         if (getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE) != null) {
             mMovieresult = getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE);
         }
+
+        linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManagerHorizontal = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
         initReviewAndVideos();
         initView();
@@ -91,7 +95,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(TAG, "onSaveInstanceState: IM CALL");
         outState.putParcelable(EXTRA_DETAIL_MOVIE,
                 getIntent().getParcelableExtra(EXTRA_DETAIL_MOVIE));
         outState.putIntArray("scrollPosition",
@@ -107,12 +110,19 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.i(TAG, "onRestoreInstanceState: IM CALL");
         mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
         final int[] position = savedInstanceState.getIntArray("scrollPosition");
         if (position != null) {
-            mScrollView.scrollTo(position[0], position[1]);
+            mScrollView.post(new Runnable() {
+                public void run() {
+                    mScrollView.scrollTo(position[0], position[1]);
+                }
+            });
         }
+
+        View targetView = findViewById(R.id.moviedetail_list_review);
+        targetView.getParent().requestChildFocus(targetView,targetView);
+
         mMoviesDetailReviewsRecycler.getLayoutManager()
                 .scrollToPosition(savedInstanceState.getInt("scrollReview"));
         mMoviesDetailVideosRecycler.getLayoutManager()
@@ -153,10 +163,9 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
 
         mMoviesDetailReviewsRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_review);
         mMoviesDetailVideosRecycler = (RecyclerView) findViewById(R.id.moviedetail_list_videos);
-        mMoviesDetailReviewsRecycler.setLayoutManager(
-                new LinearLayoutManager(this));
-        mMoviesDetailVideosRecycler.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        mMoviesDetailReviewsRecycler.setLayoutManager(linearLayoutManager);
+        mMoviesDetailVideosRecycler.setLayoutManager(linearLayoutManagerHorizontal);
 
         mContentFrame = (LinearLayout) findViewById(R.id.details_content_frame);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
@@ -262,7 +271,8 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
             if (mMovieDetailVideoAdapter.shareClick() != null) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.youtube_url, mMovieDetailVideoAdapter.shareClick()));
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        getString(R.string.youtube_url, mMovieDetailVideoAdapter.shareClick()));
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
             } else {
