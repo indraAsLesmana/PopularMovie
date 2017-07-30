@@ -24,7 +24,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import id.co.blogspot.tutor93.popularmovie.PopularMovie;
 import id.co.blogspot.tutor93.popularmovie.R;
 import id.co.blogspot.tutor93.popularmovie.base.BaseActivity;
 import id.co.blogspot.tutor93.popularmovie.data.DataManager;
@@ -62,7 +61,7 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_detail);
+        setContentView(R.layout.fragment_movie_detail);
         if (savedInstanceState != null)
             mMovieresult = savedInstanceState.getParcelable(EXTRA_DETAIL_MOVIE);
 
@@ -273,7 +272,6 @@ public class MovieDetailActivity extends BaseActivity implements MovieDetailCont
             Log.i(TAG, uriResult.toString());
         }
     }
-
 
     private boolean unFavoriteMovie(int id) {
         int isSuccess = getContentResolver().delete(
